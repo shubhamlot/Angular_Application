@@ -1,0 +1,22 @@
+<h1>Update Books</h1>
+<form #bookForm="ngForm" (ngSubmit)="onSubmit()" >
+    <!-- <input type="hidden" name="id" [(ngModel)]="bookservice.selectedBooks._id"/> -->
+    <!-- {{ bookForm.value | json }} -->
+  
+    <label for="title">title</label><br/>
+    <input type="text" id="title" name="title" [(ngModel)]="bookModel.title"/><br/>
+
+    <label for="author">author</label><br/>
+    <input type="text" id="author" name="author" [(ngModel)]="bookModel.author" /><br/>
+
+    <label for="category">category</label><br/>
+    <input type="text" id="category" name="category" [(ngModel)]="bookModel.category"/><br/>
+
+    <label for="copies">copies</label><br/>
+    <input type="number" id="copies" name="copies" [(ngModel)]="bookModel.copies"/><br/>
+
+    <button type="submit">Update</button>
+    <!-- <button type="button" (click)="resetForm()">reset</button> -->
+
+
+</form>
