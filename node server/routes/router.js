@@ -27,18 +27,15 @@ router.get("/getBooks/:id",(req,res)=>{
 })
 
 router.post("/addBooks",(req,res)=>{
-    console.log(req)
+
     var title = req.body.title
     var author = req.body.author
     var category = req.body.category
     var copies = req.body.copies
     var rented = req.body.rented
-    // if(copies<0){
-    //     res.json({Response:"number of copies should be greater then or equal to 0"})
-    // }
-    // else{
+
     var newbook = new book({title:title,author:author,category:category,copies:copies,rented:rented})
-    console.log(copies)
+
     newbook.save((err)=>{
         if(err){
             res.json({Response:"error in saving"})
@@ -47,7 +44,6 @@ router.post("/addBooks",(req,res)=>{
             res.json({Response:"data is saved"})
         }
     })
-// }
 
 })
 
@@ -62,7 +58,7 @@ router.put("/rentBooks/:id",async (req,res)=>{
     var _id = req.params.id
     var copies = req.body.copies
     var rented = req.body.rented
-    console.log(copies)
+
     if(copies>0){
         copies-=1
         rented+=1
@@ -82,10 +78,10 @@ router.put("/returnBooks/:id",async (req,res)=>{
 
     
     if(rented<0){
-        // console.log("rented")
+       
         res.json({Response:"More rented then total"})
     }else{
-        // console.log(rented,"+",copies)
+      
         copies+=1
         rented-=1
         await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
