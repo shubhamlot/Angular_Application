@@ -9,6 +9,8 @@
       <th>Remaining Copies</th>
       <th>Rented Copies</th>
 
+      <th></th>
+
 
     </tr>
     <tr *ngFor="let book of books" >
@@ -18,12 +20,10 @@
       <td>{{book.copies}}</td>
       <td>{{book.rented}}</td>
 
-      <!-- <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
-      <td><button class="delete" (click)='delete(book)'>delete</button></td>
-      <td><button class="update" (click)='gotoPage("update",book)'>Update</button></td>
-      <td><button> test</button></td> -->
+      <td><button class="details" (click) = "removeItem(book)">Remove from Cart</button></td>
 
     </tr>
-    <!-- <button class="create" (click)='gotoPage("create",null)'>Create</button> -->
+    <br>
+    <button class="details" (click)="checkOut()"> Checkout </button>
     
   </table>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Books } from 'src/app/Books';
 import { BooksService } from 'src/app/books.service';
 
 @Component({
@@ -9,17 +10,43 @@ import { BooksService } from 'src/app/books.service';
 })
 export class CartComponent implements OnInit {
 
-  id:any;
   books: any;
 
-  constructor(public bookData:BooksService,private route:ActivatedRoute,private router:Router) { }
+  constructor(public bookData:BooksService) { }
 
   ngOnInit(): void {
-    //this.id = this.route.snapshot.paramMap.get('id')
-    //console.log(this.bookData.cartlist.length);
-    this.books = localStorage.getItem('cart');
-    this.books = JSON.parse(this.books);
-    console.log(this.books);
+    this.loadCart();
   }
 
+  loadCart() {
+    this.books = localStorage.getItem('cart');
+    this.books = JSON.parse(this.books);
+  }
+
+  removeItem(book: Books) {
+    // remove item from bookservice cartlist
+    for(let i = 0; i < this.bookData.cartlist.length; i++) {
+      if(this.bookData.cartlist[i]._id == book._id) {
+        this.bookData.cartlist.splice(i, 1);
+      }
+    }
+
+    // update local storage
+    localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
+
+    // update view
+    this.loadCart();
+  }
+
+  checkOut() {
+    for(let i =0; i < this.books.length; i++) {
+      this.books[i].copies -= 1;
+      this.books[i].rented += 1;
+    }
+
+    // after checkout, cart should be empty
+    localStorage.removeItem('cart');
+    this.loadCart();
+
+  }
 }

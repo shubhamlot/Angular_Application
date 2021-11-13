@@ -10,6 +10,7 @@ import { UpdatebookComponent } from './component/updatebook/updatebook.component
 import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './component/details/details.component';
 import { CartComponent } from './component/cart/cart.component';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CartComponent } from './component/cart/cart.component';
     CreatebookComponent,
     UpdatebookComponent,
     DetailsComponent,
-    CartComponent
+    CartComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

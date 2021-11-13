@@ -13,6 +13,7 @@ export class BooksService {
   BASE_URL='http://localhost:8000/routes'
   public booklist:Array<any>
   public cartlist:Array<any> = [];
+  public wishlist:Array<any> = [];
   // data:Array<Books>
   selectedBooks:Books
   constructor(private http: HttpClient) {
