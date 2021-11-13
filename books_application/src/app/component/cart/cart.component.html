@@ -1,4 +1,4 @@
-<h1>Welcome to Books Application </h1>
+<h1>Cart </h1>
 
 <table>
     <tr>
@@ -9,11 +9,6 @@
       <th>Remaining Copies</th>
       <th>Rented Copies</th>
 
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-
 
     </tr>
     <tr *ngFor="let book of books" >
@@ -23,13 +18,12 @@
       <td>{{book.copies}}</td>
       <td>{{book.rented}}</td>
 
-      <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
+      <!-- <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
       <td><button class="delete" (click)='delete(book)'>delete</button></td>
       <td><button class="update" (click)='gotoPage("update",book)'>Update</button></td>
-      <td><button> Add to Cart</button></td>
+      <td><button> test</button></td> -->
 
     </tr>
-    <button class="create" (click)='gotoPage("create",null)'>Create</button>
-    <button class="cart" (click)='gotoPage("cart", null)'>View Cart</button>
+    <!-- <button class="create" (click)='gotoPage("create",null)'>Create</button> -->
     
   </table>
