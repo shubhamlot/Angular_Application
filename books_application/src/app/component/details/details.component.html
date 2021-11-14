@@ -1,39 +1,24 @@
 <h1>Books Details</h1>
 
 <table>
+  
     <tr>
-      
       <th>Title</th>
       <th>Author</th>
       <th>Category</th>
       <th>Remaining Copies</th>
       <th>Rented Copies</th>
-
-
-      <!-- <th></th>
-      <th></th>
-      <th></th> -->
-
-
     </tr>
-    <tr >
+
+    <tr>
       <td>{{books.title}}</td>
       <td>{{books.author}}</td>
       <td>{{books.category}}</td>
       <td>{{books.copies}}</td>
       <td>{{books.rented}}</td>
-
-
-      <!-- <td><button (click)='gotoPage("details",book)'>details</button></td>
-      <td><button (click)='delete(book)'>delete</button></td>
-      <td><button (click)='gotoPage("update",book)'>Update</button></td> -->
-      
-      
-      
-
     </tr>
-    <button class="rent" (click)='rentBook()'>Rent this book</button>
-    <button class="return" (click)='returnBook()'>Return this book</button>
 
+    <button class="rent" (click)='rentBook()'>Add to Cart</button>
+    <button class="return" (click)='returnBook()'>Return this book</button>
     
   </table>

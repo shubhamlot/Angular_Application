@@ -8,7 +8,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { CreatebookComponent } from './component/createbook/createbook.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { FormsModule } from '@angular/forms';
-import { DetailsComponent } from './component/details/details.component'
+import { DetailsComponent } from './component/details/details.component';
+import { CartComponent } from './component/cart/cart.component';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { DetailsComponent } from './component/details/details.component'
     HomeBooksComponent,
     CreatebookComponent,
     UpdatebookComponent,
-    DetailsComponent
+    DetailsComponent,
+    CartComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
