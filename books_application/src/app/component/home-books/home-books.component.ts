@@ -12,6 +12,7 @@ export class HomeBooksComponent implements OnInit {
 
   books:any
   index:any
+  isAdmin = true;
   constructor(private bookData:BooksService,private router:Router) { 
    
   }
@@ -22,9 +23,7 @@ export class HomeBooksComponent implements OnInit {
 
   bookList(){
     this.bookData.getBooks().subscribe((res)=>{
-      
       this.books = res
-      
     })
   }
 
@@ -37,6 +36,12 @@ export class HomeBooksComponent implements OnInit {
 
   }
 
+  getBookByCat(cat: string) {
+    this.bookData.getBooksbyCat(cat).subscribe((res)=> {
+      this.books = res
+    })
+  }
+
 
   gotoPage(pagename:string,book:Books | null){
     if(book == null){
@@ -44,6 +49,11 @@ export class HomeBooksComponent implements OnInit {
     }else{
       return this.router.navigate([`/${pagename}/${book._id}`])
     }
+  }
+
+  addWishList(book: Books) {
+    this.bookData.wishlist.push(book);
+    localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
   }
 
 }

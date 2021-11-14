@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const book = require("../model/Books")
+const user = require("../model/Users")
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -24,6 +25,17 @@ router.get("/getBooks/:id",(req,res)=>{
         }
     })
     
+})
+
+router.get("/getBooksbyCat/:category", (req, res) => {
+    book.find({ category: req.params.category }, (err, data) => {
+        if (err) {
+            res.json({ Response: "err no data found" })
+        }
+        else {
+            res.json(data)
+        }
+    })
 })
 
 router.post("/addBooks",(req,res)=>{
@@ -106,5 +118,36 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
+router.post("/signup", async (req, res) => {
+	var userObj = new user();
+	userObj.firstname = req.body.firstname;
+	userObj.lastname = req.body.lastname;
+	userObj.email = req.body.email;
+	userObj.password = req.body.password;
+
+	var duplicateUser = await user.findOne({ email:userObj.email })
+
+	if(duplicateUser) res.send(false);
+	else {
+		userObj.save((err, result) => {
+			if(err) res.send(false);
+			res.send(true);
+		})
+	}
+})
+
+router.post("/login", async (req, res) => {
+	var userEmail = req.body.email;
+	var userPassword = req.body.password;
+
+	var result = await user.findOne({email: userEmail});
+
+	if(result === null) res.send(false);
+	else {
+		var logInSuccess = result.password === userPassword;
+
+		res.send(logInSuccess);
+	}
+})
 
 module.exports = router

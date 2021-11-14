@@ -1,4 +1,9 @@
-<h1>Welcome to Books Home</h1>
+<h1>Welcome to Books Application </h1>
+
+<button (click)='bookList()'>All</button>
+<button (click)='getBookByCat("Fiction")'>Fiction</button>
+<button (click)='getBookByCat("Mystery")'>Mystery</button>
+<button (click)='getBookByCat("Educational")'>Educational</button>
 
 <table>
     <tr>
@@ -9,7 +14,7 @@
       <th>Remaining Copies</th>
       <th>Rented Copies</th>
 
-
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,14 +28,16 @@
       <td>{{book.copies}}</td>
       <td>{{book.rented}}</td>
 
-      <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
-      <td><button class="delete" (click)='delete(book)'>delete</button></td>
-      <td><button class="update" (click)='gotoPage("update",book)'>Update</button></td>
-      
-      
+      <td><button class="details" (click)='gotoPage("details",book)'>Details</button></td>
+      <td><button *ngIf="isAdmin" class="delete" (click)='delete(book)'>Delete</button></td>
+      <td><button *ngIf="isAdmin" class="update" (click)='gotoPage("update",book)'>Update</button></td>
+      <td><button (click)="addWishList(book)"> Add to Wishlist</button></td>
       
 
     </tr>
-    <button class="create" (click)='gotoPage("create",null)'>Create</button>
+    <button *ngIf="isAdmin" class="create" (click)='gotoPage("create",null)'>Create</button>
+    <button class="cart" (click)='gotoPage("cart", null)'>View Cart</button>
+    <button class="wishlist" (click)='gotoPage("wishlist", null)'>View Wishlist</button>
     
+
   </table>

@@ -10,19 +10,31 @@ var bookSchema = new schema({
         type:String,
         required:true
     },
+    price:{
+        type:Number,
+        // required:true
+    },
     category:{
         type:String,
         required:true
     },
+    ISBN:{
+        type:Number,
+        // required:true
+    },
+    
     copies:{
         type:Number,
         required:true,
-        // min:0
+        // max:1
     },
+    ///the following items have to be deleted once everything is fixed vvv
     rented:{
         type:Number,
         required:true
     }
+
+    ///above items^^^
 })
 
 var book = mongoose.model('Book',bookSchema,'books')
