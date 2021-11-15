@@ -40,8 +40,12 @@ export class CartComponent implements OnInit {
 
   checkOut() {
     for(let i =0; i < this.books.length; i++) {
-      this.books[i].copies -= 1;
-      this.books[i].rented += 1;
+      this.bookData.rentBooks(this.books[i]).subscribe(
+        data=>{
+          console.log(data)
+        },
+        error=>console.error("error"+error)
+      )
     }
 
     // after checkout, cart should be empty
