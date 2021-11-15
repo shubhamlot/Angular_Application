@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './component/details/details.component'
 import { SignupComponent } from './component/signup/signup.component';
 import { LoginComponent } from './component/login/login.component';
+import { CartComponent } from './component/cart/cart.component';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,10 @@ import { LoginComponent } from './component/login/login.component';
     CreatebookComponent,
     UpdatebookComponent,
     DetailsComponent,
-	SignupComponent,
-	LoginComponent
+	  SignupComponent,
+	  LoginComponent,
+    CartComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

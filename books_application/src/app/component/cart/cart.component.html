@@ -1,0 +1,29 @@
+<h1>Cart </h1>
+
+<table>
+    <tr>
+      
+      <th>Title</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>Remaining Copies</th>
+      <th>Rented Copies</th>
+
+      <th></th>
+
+
+    </tr>
+    <tr *ngFor="let book of books" >
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.category}}</td>
+      <td>{{book.copies}}</td>
+      <td>{{book.rented}}</td>
+
+      <td><button class="details" (click) = "removeItem(book)">Remove from Cart</button></td>
+
+    </tr>
+    <br>
+    <button class="details" (click)="checkOut()"> Checkout </button>
+    
+  </table>

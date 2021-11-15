@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './component/cart/cart.component';
 import { CreatebookComponent } from './component/createbook/createbook.component';
 import { DetailsComponent } from './component/details/details.component';
 import { HomeBooksComponent } from './component/home-books/home-books.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
   {
 	path: "login",
 	component:LoginComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent
   },
   {
     path:'',
