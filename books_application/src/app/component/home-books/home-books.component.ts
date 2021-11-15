@@ -10,6 +10,8 @@ import { Router,Route } from '@angular/router'
 })
 export class HomeBooksComponent implements OnInit {
 
+  flag:Boolean
+  book_id:any
   books:any
   index:any
   isAdmin = true;
@@ -53,7 +55,21 @@ export class HomeBooksComponent implements OnInit {
 
   addWishList(book: Books) {
     this.bookData.wishlist.push(book);
-    localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
+    this.book_id = localStorage.getItem('wishlist');
+    this.book_id = JSON.parse(this.book_id)
+   
+    this.flag =false
+    for(var i=0;i<this.book_id.length;i++){
+      if(this.book_id[i]._id == book._id){
+        this.flag = true
+      }
+    }
+    if(this.flag){
+      alert("Item already in wishlist")
+    }else{
+      localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
+      alert(`${book.title} has been added to wishlist`)
+    }
   }
 
 }
