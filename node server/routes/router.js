@@ -70,13 +70,15 @@ router.put("/rentBooks/:id",async (req,res)=>{
     var _id = req.params.id
     var copies = req.body.copies
     var rented = req.body.rented
-    var uid='';
+   //user id will be passed by login component
+   // var uid='';
 
     if(copies>0){
         copies-=1
         rented+=1
         await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
-        user.findOneAndUpdate({_id:_id},{$set})
+        //updation required as per user status
+        user.findOneAndUpdate({uid:uid},{$set:{rentedbooks:book._id}})
         res.json({Response:"Status updated"})
     }else{
         res.json({Response:"copies are over"})
