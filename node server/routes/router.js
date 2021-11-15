@@ -27,17 +27,6 @@ router.get("/getBooks/:id",(req,res)=>{
     
 })
 
-router.get("/getBooksbyCat/:category", (req, res) => {
-    book.find({ category: req.params.category }, (err, data) => {
-        if (err) {
-            res.json({ Response: "err no data found" })
-        }
-        else {
-            res.json(data)
-        }
-    })
-})
-
 router.post("/addBooks",(req,res)=>{
 
     var title = req.body.title
