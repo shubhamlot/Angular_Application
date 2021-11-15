@@ -54,6 +54,7 @@ export class HomeBooksComponent implements OnInit {
   addWishList(book: Books) {
     this.bookData.wishlist.push(book);
     localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
+    alert(book.title + ' added to wishlist');
   }
 
 }
