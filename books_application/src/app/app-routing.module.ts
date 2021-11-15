@@ -37,6 +37,14 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent
+  }, 
+  {
+	  path:'signup',
+	  component:SignupComponent
+  },
+  {
+	  path: "login",
+	  component:LoginComponent
   },
   {
     path:'',
