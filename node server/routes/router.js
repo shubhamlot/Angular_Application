@@ -70,11 +70,13 @@ router.put("/rentBooks/:id",async (req,res)=>{
     var _id = req.params.id
     var copies = req.body.copies
     var rented = req.body.rented
+    var uid='';
 
     if(copies>0){
         copies-=1
         rented+=1
         await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
+        user.findOneAndUpdate({_id:_id},{$set})
         res.json({Response:"Status updated"})
     }else{
         res.json({Response:"copies are over"})

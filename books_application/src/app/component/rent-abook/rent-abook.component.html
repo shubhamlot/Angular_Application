@@ -7,14 +7,15 @@
       </tr>
     </thead>
     <tbody>
-    <!--Data to be fetched from rented[] of user collection-->
-      <tr *ngFor ="let book of Users.rentedbooks">
-        <td>{{book.title}}</td>
+    <!--Data to be fetched from rented[] of user collection
+      <tr *ngFor ="let book of user.rentedbooks">-->
+        <td></td>
         <td>
-          <button type="button">Return Book</button>
+          <button type="button" >Return Book</button>
+          <!--Book details link will be added from catalogue-->
           <button type="button">View Details</button>
         </td>
-      </tr>
+      
       
     </tbody>
   </table>
