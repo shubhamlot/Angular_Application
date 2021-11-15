@@ -1,36 +1,41 @@
 <h1>Welcome to Books Home</h1>
 
+<button (click)='bookList()'>All</button>
+<button (click)='getBookByCat("Fiction")'>Fiction</button>
+<button (click)='getBookByCat("Mystery")'>Mystery</button>
+<button (click)='getBookByCat("Educational")'>Educational</button>
+
 <table>
-    <tr>
-      
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
-      <th>Remaining Copies</th>
-      <th>Rented Copies</th>
+  <tr>
+
+    <th>Title</th>
+    <th>Author</th>
+    <th>Category</th>
+    <th>Remaining Copies</th>
+    <th>Rented Copies</th>
 
 
-      <th></th>
-      <th></th>
-      <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
 
 
-    </tr>
-    <tr *ngFor="let book of books" >
-      <td>{{book.title}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.category}}</td>
-      <td>{{book.copies}}</td>
-      <td>{{book.rented}}</td>
+  </tr>
+  <tr *ngFor="let book of books">
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.category}}</td>
+    <td>{{book.copies}}</td>
+    <td>{{book.rented}}</td>
 
-      <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
-      <td><button class="delete" (click)='delete(book)'>delete</button></td>
-      <td><button class="update" (click)='gotoPage("update",book)'>Update</button></td>
-      
-      
-      
+    <td><button class="details" (click)='gotoPage("details",book)'>details</button></td>
+    <td><button class="delete" (click)='delete(book)'>delete</button></td>
+    <td><button class="update" (click)='gotoPage("update",book)'>Update</button></td>
 
-    </tr>
-    <button class="create" (click)='gotoPage("create",null)'>Create</button>
-    
-  </table>
+
+
+
+  </tr>
+  <button class="create" (click)='gotoPage("create",null)'>Create</button>
+
+</table>

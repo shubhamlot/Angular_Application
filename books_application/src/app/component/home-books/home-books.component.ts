@@ -37,6 +37,12 @@ export class HomeBooksComponent implements OnInit {
 
   }
 
+  getBookByCat(cat: string) {
+    this.bookData.getBooksbyCat(cat).subscribe((res)=> {
+      this.books = res
+    })
+  }
+
 
   gotoPage(pagename:string,book:Books | null){
     if(book == null){

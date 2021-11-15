@@ -22,8 +22,12 @@ export class BooksService {
 getBooks() {
 
     return this.http.get(this.BASE_URL+'/getBooks')
-    
-   }
+
+  }
+
+  getBooksbyCat(cat: string) {
+    return this.http.get(this.BASE_URL +'/getBooksbyCat/'+cat)
+  }
 
 postBooks(book:Books){
     console.log(book)
