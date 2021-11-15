@@ -9,7 +9,7 @@
     <tbody>
     <!--Data to be fetched from rented[] of user collection-->
       <tr *ngFor ="let book of Users.rentedbooks">
-        <td></td>
+        <td>{{book.title}}</td>
         <td>
           <button type="button">Return Book</button>
           <button type="button">View Details</button>
