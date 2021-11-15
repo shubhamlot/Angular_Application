@@ -69,8 +69,6 @@ export class DetailsComponent implements OnInit {
     this.bookData.returnBooks(this.books).subscribe(
       data=>{
         console.log(data)
-        this.books.rented-=1
-        this.books.copies+=1
       },
       error=>console.error("error"+error)
      
