@@ -14,6 +14,10 @@ var userSchema = new schema({
         type:String,
         required:true
     },
+	password:{
+		type:String,
+		required:true
+	},
     isadmin:{
         type:Boolean,
         required:true,
