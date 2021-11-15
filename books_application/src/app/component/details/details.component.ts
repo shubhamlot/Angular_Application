@@ -69,6 +69,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.returnBooks(this.books).subscribe(
       data=>{
         console.log(data)
+        alert("Thank you")
       },
       error=>console.error("error"+error)
      
