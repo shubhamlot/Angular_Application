@@ -11,10 +11,10 @@ import {catchError, tap, map} from 'rxjs/operators';
 })
 export class BooksService {
   BASE_URL='http://localhost:8000/routes'
-  public booklist:Array<any>
+
   public cartlist:Array<any> = [];
   public wishlist:Array<any> = [];
-  // data:Array<Books>
+
   selectedBooks:Books
   constructor(private http: HttpClient) {
     this.selectedBooks=new Books("","","","",0,0)
@@ -24,8 +24,12 @@ export class BooksService {
 getBooks() {
 
     return this.http.get(this.BASE_URL+'/getBooks')
-    
-   }
+
+  }
+
+  getBooksbyCat(cat: string) {
+    return this.http.get(this.BASE_URL +'/getBooksbyCat/'+cat)
+  }
 
 postBooks(book:Books) {
     console.log(book)

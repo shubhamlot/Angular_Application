@@ -22,15 +22,13 @@ var bookSchema = new schema({
         type:Number,
         // required:true
     },
-
-
-
-    ///the following items have to be deleted once everything is fixed vvv
+    
     copies:{
         type:Number,
         required:true,
-        // min:0
+        // max:1
     },
+    ///the following items have to be deleted once everything is fixed vvv
     rented:{
         type:Number,
         required:true
