@@ -13,6 +13,12 @@ router.get("/getBooks",(req,res)=>{
     })
 })
 
+router.get("/users",(req,res)=>{
+    user.find({},(err,data)=>{
+        res.json(data)
+    })
+})
+
 router.get("/getBooks/:id",(req,res)=>{
     var _id = req.params.id
 
@@ -75,6 +81,8 @@ router.put("/rentBooks/:id",async (req,res)=>{
         copies-=1
         rented+=1
         await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
+        await user.findOneAndUpdate({_id:"6191dec2ab87ca5adeba6202"},{$push:{rentedbooks:_id}})
+        
         res.json({Response:"Status updated"})
     }else{
         res.json({Response:"copies are over"})
@@ -124,14 +132,17 @@ router.post("/signup", async (req, res) => {
 	userObj.lastname = req.body.lastname;
 	userObj.email = req.body.email;
 	userObj.password = req.body.password;
-
+     console.log(req)
 	var duplicateUser = await user.findOne({ email:userObj.email })
-
+    
+  
+    // console.log(duplicateUser)
 	if(duplicateUser) res.send(false);
 	else {
+        console.log(userObj.email)
 		userObj.save((err, result) => {
 			if(err) res.send(false);
-			res.send(true);
+			else res.send(true);
 		})
 	}
 })
