@@ -1,6 +1,8 @@
 const router = require('express').Router()
+const { now } = require('mongoose')
 const { listenerCount } = require('../model/Books')
 const book = require("../model/Books")
+const userlog = require('../model/Userlog')
 const user = require("../model/Users")
 
 router.get("/getBooks",(req,res)=>{
@@ -92,6 +94,17 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
     // }else{
     //     res.json({Response:"copies are over"})
     // }
+
+    //add book to userlog
+    var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
+    ulog.save((err)=>{
+        if(err){
+            res.json({Response:"error in saving"})
+        }
+        else{
+            res.json({Response:"data is saved"})
+        }
+    })
     
 })
 
@@ -106,6 +119,8 @@ router.get("/:user/rentedbooks",async (req,res)=>{
             // res.json(data)
         }
     })
+
+
 })
 
 router.put("/:user/returnBooks/:id",async (req,res)=>{
@@ -135,6 +150,7 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
              res.json({Response:"Status updated"})
          })
         
+
         }
     })
    
@@ -148,6 +164,18 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     //     await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
     //     res.json({Response:"Status updated"})
     // }
+
+    
+    //adds book return log to userlog
+    var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
+    ulog.save((err)=>{
+        if(err){
+            res.json({Response:"error in saving"})
+        }
+        else{
+            res.json({Response:"data is saved"})
+        }
+    })
     
 })
 

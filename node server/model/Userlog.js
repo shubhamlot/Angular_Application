@@ -21,7 +21,7 @@ var userLog= new schema({
     //if rented, in view Rented status will be shown to admin
     //otherwise, returne status will be shown
     rented:{
-        type:Boolean,
+        type:Number,
         required:true
     }
 
