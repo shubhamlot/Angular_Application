@@ -1,7 +1,11 @@
 const router = require('express').Router()
 const book = require("../model/Books")
 const user = require("../model/Users")
+const bcrypt = require("bcrypt")
+//const passport = require("passport")
 
+/*const intializePassport = require("./passport-config")
+intializePassport(passport)
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
         if(err){
@@ -12,6 +16,7 @@ router.get("/getBooks",(req,res)=>{
         }
     })
 })
+*/
 
 router.get("/getBooks/:id",(req,res)=>{
     var _id = req.params.id
@@ -123,6 +128,7 @@ router.post("/signup", async (req, res) => {
 			res.send(true);
 		})
 	}
+    console.log(userObj)
 })
 
 router.post("/login", async (req, res) => {

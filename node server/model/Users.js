@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var schema = mongoose.Schema
 var Books = require('./Books')
+const bcrypt=require('bcrypt')
 var userSchema = new schema({
     firstname:{
         type:String,
@@ -30,6 +31,15 @@ var userSchema = new schema({
         }
     ]
 })
-
+userSchema.pre('save',async function (next){
+    try{
+        const salt=await bcrypt.genSalt(10)
+        const hashedPassword=await bcrypt.hash(this.password,salt)
+        this.password=hashedPassword
+        next()
+    }catch(error){
+        next(error)
+    }
+})
 var user = mongoose.model('User',userSchema,'users')
 module.exports = user
