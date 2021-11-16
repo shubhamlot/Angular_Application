@@ -118,7 +118,7 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     
     user.find({_id:userid}, async (err,data)  =>{
      
-        console.log()
+    
         if(!data[0].rentedbooks.includes(bookid)){
             
             res.send("user dont have the book")
