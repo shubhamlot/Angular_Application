@@ -115,8 +115,14 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     var rented = req.body.rented
     var copies = req.body.copies
     var list =[]
-
+    
     user.find({_id:userid}, async (err,data)  =>{
+     
+        console.log()
+        if(!data[0].rentedbooks.includes(bookid)){
+            
+            res.send("user dont have the book")
+        }else{
         flag = data[0].rentedbooks.includes(bookid)
         
         if(flag){
@@ -134,11 +140,11 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
         
           await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
           user.findOneAndUpdate({_id:userid},{$set:{rentedbooks:list}},(err,data)=>{
-             console.log(data)
              res.json({Response:"Status updated"})
          })
         
         }
+    }
     })
    
     // console.log(flag)

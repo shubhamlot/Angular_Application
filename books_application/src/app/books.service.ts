@@ -49,7 +49,7 @@ getBookDetails(book_id:string){
 }
 
 rentBooks(book:Books){
-  var userid = "6191dec2ab87ca5adeba6202"//temporary
+  var userid = "6191dec2ab87ca5adeba6202" //temporary
   return this.http.put(this.BASE_URL+"/"+userid+'/rentBooks/'+book._id,book)
 }
 
