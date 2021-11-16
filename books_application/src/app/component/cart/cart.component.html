@@ -34,64 +34,58 @@
             <div class="title">
                 <div class="row">
                     <div class="col">
-                        <h4><b>Cart</b></h4>
+                        <h1 class="display-4">Cart</h1>
                     </div>
-                    <div class="col align-self-center text-right text-muted" *ngIf="books">{{books.length}} items</div>
+                    <div class="col align-self-center text-end display-6" *ngIf="books">{{books.length}} items</div>
+                    <hr>
                 </div>
-            </div>
+            </div> <!-- title ends-->
 
+            <div class="row"> 
+              <div class="row align-items-center">
+                <div class="col"> <h4> Item </h4> </div>
+                <div class="col"> <h4> Genre</h4> </div>
+                <div class="col"> <h4> Type</h4> </div>
+                <div class="col"></div>
+              </div>
+              <hr>
+            </div>
 
             <div class="row" *ngFor="let book of books">
+              <div class="row main align-items-center">
+                  <div class="col">
+                    <div class="row"> {{book.title}}</div>
+                    <div class="row text-muted">{{book.author}}</div>
+                  </div>
+                  
+                  <div class="col"> {{book.category}} </div>
+                  <div class="col"> Hardbound </div>
 
-                <div class="row main align-items-center">
-                    <!-- <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div> -->
-                    <div class="col">
-                        <div class="row text-muted">{{book.category}}</div>
-                        <div class="row">{{book.title}}</div>
-                    </div>
-                    
-                    <div class="col"> By {{book.author}} </div>
-                </div>
+                  <div class="col"> 
+                    <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
+                  </div>
+              </div>
+              <hr>
             </div>
 
-            <!-- <div class="row">
-                <div class="row main align-items-center">
-                    <div class="col">
-                        <div class="row text-muted">{book.category}</div>
-                        <div class="row">Cotton T-shirt</div>
-                    </div>
-                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
-                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div>
+            
 
-            <div class="row border-top border-bottom">
-                <div class="row main align-items-center">
-                    <div class="col">
-                        <div class="row text-muted">Shirt</div>
-                        <div class="row">Cotton T-shirt</div>
-                    </div>
-                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
-                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div> -->
-
-
-            <div class="back-to-shop"><a routerLink="/">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop"><a routerLink="/">&leftarrow;</a><span class="text-muted display">Back to shop</span></div>
         </div>
         <div class="col-md-4 summary">
             <div>
-                <h5><b>Summary</b></h5>
+                <h2 class="display-4">Summary</h2>
             </div>
             <hr>
             <div class="row">
-                <div class="col" style="padding-left:0;" *ngIf="books">ITEMS : {{books.length}}</div>
+                <div class="col" style="padding-left:0; font-size: medium;" *ngIf="books">ITEMS : {{books.length}}</div>
             </div>
             <form>
-                <p>Delivery</p> 
+                <p>Delivery Method</p> 
                 <select>
                     <option class="text-muted">Standard : {{ 50.00 | currency: 'INR' }}</option>
-                    <option class="text-muted"> Pickup at library </option>
+                    <option class="text-muted">Express : {{ 100.00 | currency: 'INR' }}</option>
+                    <option class="text-muted"> Pickup at nearest library </option>
                 </select>
                 <input type="checkbox" id="tandc" name="tandc">
                 <label for="tandc"> I accept that if there is any damage to book I will be held responsible. </label><br>
