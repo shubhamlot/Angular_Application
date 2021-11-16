@@ -205,4 +205,16 @@ router.post("/login", async (req, res) => {
 	}
 })
 
+//returns user information
+router.get("/user-information/:email", async (req, res) => {
+    let email = req.params.email;
+
+    let result = await user.findOne({email: email});
+    console.log(result);
+    if(result === null) res.send(false);
+	else {
+		res.send(result);
+	}
+});
+
 module.exports = router

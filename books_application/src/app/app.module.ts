@@ -9,12 +9,15 @@ import { CreatebookComponent } from './component/createbook/createbook.component
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { DetailsComponent } from './component/details/details.component'
+import { DetailsComponent } from './component/details/details.component';
+import { RentAbookComponent } from './component/rent-abook/rent-abook.component'
+// import { DetailsComponent } from './component/details/details.component'
 import { SignupComponent } from './component/signup/signup.component';
 import { LoginComponent } from './component/login/login.component';
 import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { MenuComponent } from './component/menu/menu.component';
+import { UserprofileComponent } from './component/userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +26,13 @@ import { MenuComponent } from './component/menu/menu.component';
     CreatebookComponent,
     UpdatebookComponent,
     DetailsComponent,
+    RentAbookComponent,
 	  SignupComponent,
 	  LoginComponent,
     CartComponent,
     WishlistComponent,
-    MenuComponent
+    MenuComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
