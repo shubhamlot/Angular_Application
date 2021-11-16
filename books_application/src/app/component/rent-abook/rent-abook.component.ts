@@ -34,5 +34,14 @@ export class RentAbookComponent implements OnInit {
     },
     error=>console.error("error"+error)
     )
-  }  
+  }
+  
+  displayRented(){
+    this.rentservice.displayrentedbooks().subscribe(data=>{
+      this.book=data
+    },
+    error=>console.error("error"+error)
+
+    )
+  }
 }
