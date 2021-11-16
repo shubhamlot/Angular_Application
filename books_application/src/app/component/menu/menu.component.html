@@ -10,12 +10,19 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="signup">Register</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="wishlist">Wishlist</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="cart">Cart</a>
-        </li>
+
+        <div class="dropdown">
+            <button class="dropbtn">User</button>
+            <div id="myDropdown" class="dropdown-content">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="wishlist">Wishlist</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="cart">Cart</a>
+                  </li>
+            </div>
+        </div>
+
       </ul>
     </div>
   </nav>
