@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+const book = require('./Books')
 const user = require('./Users')
 var schema = mongoose.Schema
 
@@ -10,11 +11,17 @@ var userLog= new schema({
 
     bookid:{
         type:schema.Types.ObjectId,
-        ref:Books
+        ref:book
     },
 
     dateAndtime:{
         type:Date,
+        required:true
+    },
+    //if rented, in view Rented status will be shown to admin
+    //otherwise, returne status will be shown
+    rented:{
+        type:Boolean,
         required:true
     }
 
