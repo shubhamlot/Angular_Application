@@ -242,4 +242,14 @@ router.get("/user-information/:email", async (req, res) => {
 	}
 });
 
+
+router.get("/userlog",async(req,res)=>{
+    userlog.find((err,data)=>{
+        if(err){
+            res.json({Response:"No data found"})
+        }else{
+            res.json(data)
+        }
+    })
+})
 module.exports = router

@@ -1,3 +1,5 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { RentbookService } from './../../rentbook.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./userlog.component.css']
 })
 export class UserlogComponent implements OnInit {
+  userlogs: any;
 
-  constructor() { }
+  constructor(public rentservice:RentbookService,private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
+  }
+
+  showlog(){
+    this.rentservice.showuserlog().subscribe(data=>{
+      this.userlogs=data
+      console.log(this.userlogs)
+    },
+    error=>console.error("error"+error)
+    )
   }
 
 }
