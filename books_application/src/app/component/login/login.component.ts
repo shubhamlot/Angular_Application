@@ -27,7 +27,10 @@ export class LoginComponent implements OnInit {
 	onSubmit(): void {
 		this.userService.login(this.userService.returningUser).subscribe(
 			data => {
-				if(data === true) this.router.navigate(['/']) // redirect to the appropriate page
+				if(data === true) {
+					alert('Login Successful!')
+					this.router.navigate(['/']) // redirect to the appropriate page
+				}
 				else this.router.navigate(['/login'])
 			},
 			error => {

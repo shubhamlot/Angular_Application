@@ -18,6 +18,7 @@ export class WishlistComponent implements OnInit {
   }
 
   loadWish() {
+    
     this.books = localStorage.getItem('wishlist');
     this.books = JSON.parse(this.books);
   }
