@@ -1,45 +1,75 @@
-<h1>Welcome to Books Application </h1>
-
-<button (click)='bookList()'>All</button>
-<button (click)='getBookByCat("Fiction")'>Fiction</button>
-<button (click)='getBookByCat("Mystery")'>Mystery</button>
-<button (click)='getBookByCat("Educational")'>Educational</button>
-
-<button style="float: right;"><a routerLink="/user-profile">User Profile</a></button>
-
-<table>
-    <tr>
-      
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
-      <th>Remaining Copies</th>
-      <th>Rented Copies</th>
-
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+<br/>
 
 
-    </tr>
-    <tr *ngFor="let book of books" >
-      <td>{{book.title}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.category}}</td>
-      <td>{{book.copies}}</td>
-      <td>{{book.rented}}</td>
+<div class="container-md">
 
-      <td><button class="details" (click)='gotoPage("details",book)'>Details</button></td>
-      <td><button *ngIf="isAdmin" class="delete" (click)='delete(book)'>Delete</button></td>
-      <td><button *ngIf="isAdmin" class="update" (click)='gotoPage("update",book)'>Update</button></td>
-      <td><button (click)="addWishList(book)"> Add to Wishlist</button></td>
-      
+  <!-- <div class="container-md text-right" >
+<div class="btn-group">
+  <button type="button" class="btn btn-danger">filter</button>
+  <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="visually-hidden">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-    </tr>
-    <button *ngIf="isAdmin" class="create" (click)='gotoPage("create",null)'>Create</button>
-    <button class="cart" (click)='gotoPage("cart", null)'>View Cart</button>
-    <button class="wishlist" (click)='gotoPage("wishlist", null)'>View Wishlist</button>
+    <li><a class="dropdown-item" (click)='bookList()'>All</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" (click)='getBookByCat("Fiction")'>Fiction</a></li>
+    <li><a class="dropdown-item" (click)='getBookByCat("Mystery")'>Mystery</a></li>
+    <li><a class="dropdown-item" (click)='getBookByCat("Educational")'>Educational</a></li>
+
     
+  </ul> -->
 
-  </table>
+
+
+  <div class="container-md">
+
+    <div class="dropdown">
+      <button class="btn btn-dark dropdown-toggl" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        filter
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+   
+  </div>
+
+
+
+
+<br/>
+
+
+
+<div class="container-md">
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <div class="col" *ngFor="let book of books">
+      <div class="p-3 border bg-light">
+        <div class="badge bg-success" *ngIf="book.copies>0 else elseBlock">Available!</div>
+        <ng-template #elseBlock><div class="badge bg-danger">Not Available!</div></ng-template>
+        <h3>{{book.title}}</h3>
+        <p>{{book.author}}</p>
+        <p>{{book.category}}</p>
+        <button type="button" class="btn btn-primary"  (click)='gotoPage("details",book)'>Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+      
+      <!-- <td><button *ngIf="isAdmin" class="delete" (click)='delete(book)'>Delete</button></td>
+      <td><button *ngIf="isAdmin" class="update" (click)='gotoPage("update",book)'>Update</button></td>
+      <td><button (click)="addWishList(book)"> Add to Wishlist</button></td> -->
+      
+
+
+    <!-- <button *ngIf="isAdmin" class="create" (click)='gotoPage("create",null)'>Create</button>
+    <button class="cart" (click)='gotoPage("cart", null)'>View Cart</button>
+    <button class="wishlist" (click)='gotoPage("wishlist", null)'>View Wishlist</button> -->
+    
