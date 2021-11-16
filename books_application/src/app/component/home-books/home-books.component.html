@@ -24,6 +24,8 @@
 
   <div class="container-md">
 
+   <div class="btn-group" role="group" aria-label="Basic example">
+
     <div class="dropdown">
       <button class="btn btn-dark dropdown-toggl" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         filter
@@ -34,7 +36,9 @@
         <li><a class="dropdown-item" href="#">Something else here</a></li>
       </ul>
     </div>
-   
+  
+      <button *ngIf="this.isadmin==true" type="button"  class="btn btn-info" routerLink="create">Create</button>
+  </div>
   </div>
 
 
@@ -73,3 +77,4 @@
     <button class="cart" (click)='gotoPage("cart", null)'>View Cart</button>
     <button class="wishlist" (click)='gotoPage("wishlist", null)'>View Wishlist</button> -->
     
+

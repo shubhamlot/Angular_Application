@@ -13,6 +13,8 @@ export class DetailsComponent implements OnInit {
   books:any;
   localCart: Array<any> = []; 
   id:any;
+  public isadmin:Boolean
+  book_id:any
 
   constructor(public bookData:BooksService,private route:ActivatedRoute,private router:Router) { }
 
@@ -22,12 +24,44 @@ export class DetailsComponent implements OnInit {
     // Why call this function here?
     this.rentBook()
     this.returnBook()
+ 
+    
+  }
+
+  delete(book:Books){
+    this.bookData.deleteBook(book).subscribe(
+      data=>{console.log("sucess",data)},
+      error=>console.error('Error',error)
+    )
+
+  }
+
+  addWishList(book: Books) {
+    this.bookData.wishlist.push(book);
+    this.book_id = localStorage.getItem('wishlist');
+    this.book_id = JSON.parse(this.book_id)
+   
+    this.flag =false
+    for(var i=0;i<this.book_id.length;i++){
+      if(this.book_id[i]._id == book._id){
+        this.flag = true
+      }
+    }
+    if(this.flag){
+      alert("Item already in wishlist")
+    }else{
+      localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
+      alert(`${book.title} has been added to wishlist`)
+    }
   }
 
   details(id: string){
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
+      this.isadmin=false
+    console.log(this.isadmin)
+
     })
   }
 
@@ -70,6 +104,7 @@ export class DetailsComponent implements OnInit {
       data=>{
         console.log(data)
         alert("Thank you")
+        return this.router.navigate([""])
       },
       error=>console.error("error"+error)
      

@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  isadmin:Boolean
   constructor() { }
 
   ngOnInit(): void {
+    this.isadmin=true
   }
 
 }

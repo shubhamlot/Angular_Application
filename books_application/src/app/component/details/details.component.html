@@ -23,15 +23,25 @@
         
       </div>
 
-      <div class="btn-group" role="group" aria-label="Basic buttons">
+      <div class="btn-group" role="group" aria-label="Basic buttons" *ngIf="isadmin==false else AdminControl" >
 
-        <button *ngIf="books.copies>0 else desablecart"  class="btn btn-success" (click)='rentBook()'>Add to Cart</button>
-        <ng-template #desablecart><button class="btn btn-success" disabled>Add to Cart</button></ng-template>
+        <button *ngIf="books.copies>0 "  class="btn btn-success" (click)='rentBook()'>Add to Cart</button>
+        <!-- <ng-template #desablecart><button class="btn btn-success" disabled>Add to Cart</button></ng-template> -->
         
-        <button *ngIf="books.copies<1 else desablereturn" type="button" class="btn btn-warning" (click)='returnBook()'>Return this book</button>
-          <ng-template #desablereturn><button class="btn btn-warning" disabled>Return Book</button></ng-template>
+        <button *ngIf="books.copies<1 " type="button" class="btn btn-warning" (click)='returnBook()'>Return this book</button>
+          <!-- <ng-template #desablereturn><button class="btn btn-warning" disabled>Return Book</button></ng-template> -->
+          <button  type="button" class="btn btn-light" >Add to wishlist</button>
+            <!-- <ng-template #desablereturn><button class="btn btn-warning" disabled>Return Book</button></ng-template> -->
        
+        
       </div>
+      <ng-template #AdminControl>
+      
+      <div class="btn-group" role="group" aria-label="admin buttons">
+        <button class="btn btn-primary" >Update</button>
+        <button class="btn btn-danger" >Delete</button>
+      </div>
+    </ng-template>
     </div>
 
 

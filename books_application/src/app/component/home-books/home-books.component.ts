@@ -14,7 +14,7 @@ export class HomeBooksComponent implements OnInit {
   book_id:any
   books:any
   index:any
-  isAdmin = true;
+  isadmin = true;
   constructor(private bookData:BooksService,private router:Router) { 
    
   }
@@ -29,14 +29,6 @@ export class HomeBooksComponent implements OnInit {
     })
   }
 
-  delete(book:Books){
-    this.bookData.deleteBook(book).subscribe(
-      data=>{console.log("sucess",data)},
-      error=>console.error('Error',error)
-    )
-    this.bookList()
-
-  }
 
   getBookByCat(cat: string) {
     this.bookData.getBooksbyCat(cat).subscribe((res)=> {
@@ -53,25 +45,7 @@ export class HomeBooksComponent implements OnInit {
     }
   }
 
-  addWishList(book: Books) {
-    this.bookData.wishlist.push(book);
-    this.book_id = localStorage.getItem('wishlist');
-    this.book_id = JSON.parse(this.book_id)
-   
-    this.flag =false
-    for(var i=0;i<this.book_id.length;i++){
-      if(this.book_id[i]._id == book._id){
-        this.flag = true
-      }
-    }
-    if(this.flag){
-      alert("Item already in wishlist")
-    }else{
-      localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
-      alert(`${book.title} has been added to wishlist`)
-    }
-  }
+
 
 }
 
-//by shrinath
