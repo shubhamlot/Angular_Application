@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Books } from 'src/app/Books';
 import { BooksService } from 'src/app/books.service';
+import { LocalStorage, LocalStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-cart',
@@ -10,15 +11,17 @@ import { BooksService } from 'src/app/books.service';
 })
 export class CartComponent implements OnInit {
 
+  @LocalStorage()
   books: any;
 
-  constructor(public bookData:BooksService) { }
+  constructor(public bookData:BooksService, private localSt: LocalStorageService) { }
 
   ngOnInit(): void {
     this.loadCart();
   }
 
   loadCart() {
+    //this.books = this.localSt.get('cart');
     this.books = localStorage.getItem('cart');
     this.books = JSON.parse(this.books);
   }

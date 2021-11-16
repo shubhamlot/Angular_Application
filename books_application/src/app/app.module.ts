@@ -15,6 +15,7 @@ import { LoginComponent } from './component/login/login.component';
 import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { MenuComponent } from './component/menu/menu.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MenuComponent } from './component/menu/menu.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularWebStorageModule,
 	// NgForm,
     FormsModule
   ],
