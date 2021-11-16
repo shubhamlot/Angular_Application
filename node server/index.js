@@ -23,8 +23,9 @@ app.listen(process.env.PORT,()=>{
 const routers = require('./routes/router')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
-app.use('/routes',routers)
 
+
+app.use('/routes',routers)
 mongoose.connect(process.env.DATABASE_URL)
 .then(()=>{console.log('connected to db')})
 .catch((err)=>{console.log(err)})

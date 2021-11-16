@@ -2,10 +2,7 @@ const router = require('express').Router()
 const book = require("../model/Books")
 const user = require("../model/Users")
 const bcrypt = require("bcrypt")
-//const passport = require("passport")
 
-/*const intializePassport = require("./passport-config")
-intializePassport(passport)
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
         if(err){
@@ -16,7 +13,7 @@ router.get("/getBooks",(req,res)=>{
         }
     })
 })
-*/
+
 
 router.get("/getBooks/:id",(req,res)=>{
     var _id = req.params.id
@@ -128,21 +125,26 @@ router.post("/signup", async (req, res) => {
 			res.send(true);
 		})
 	}
-    console.log(userObj)
+  //console.log(userObj)
 })
 
 router.post("/login", async (req, res) => {
 	var userEmail = req.body.email;
-	var userPassword = req.body.password;
-
+	var DbPassword = req.body.password;
+    
 	var result = await user.findOne({email: userEmail});
-
-	if(result === null) res.send(false);
-	else {
-		var logInSuccess = result.password === userPassword;
-
-		res.send(logInSuccess);
-	}
+    passwordByUser=result.password
+    bcrypt.compare(DbPassword,passwordByUser,function(error,ismatch){
+        if(error){
+            throw error
+        }
+        else if(!ismatch){
+            res.send(false)
+        }
+        else{
+            res.send(true)
+        }
+    })
 })
 
 module.exports = router
