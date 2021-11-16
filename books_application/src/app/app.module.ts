@@ -9,12 +9,23 @@ import { CreatebookComponent } from './component/createbook/createbook.component
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { RentAbookComponent } from './component/rent-abook/rent-abook.component'
 import { DetailsComponent } from './component/details/details.component'
+=======
+import { DetailsComponent } from './component/details/details.component';
+import { RentAbookComponent } from './component/rent-abook/rent-abook.component'
+// import { DetailsComponent } from './component/details/details.component'
+>>>>>>> 71bcc116997b28736ae4197f3d77cb04ee62a085
 import { SignupComponent } from './component/signup/signup.component';
 import { LoginComponent } from './component/login/login.component';
 import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+<<<<<<< HEAD
+=======
+import { MenuComponent } from './component/menu/menu.component';
+import { UserprofileComponent } from './component/userprofile/userprofile.component';
+>>>>>>> 71bcc116997b28736ae4197f3d77cb04ee62a085
 
 @NgModule({
   declarations: [
@@ -27,7 +38,13 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
 	  SignupComponent,
 	  LoginComponent,
     CartComponent,
+<<<<<<< HEAD
     WishlistComponent
+=======
+    WishlistComponent,
+    MenuComponent,
+    UserprofileComponent
+>>>>>>> 71bcc116997b28736ae4197f3d77cb04ee62a085
   ],
   imports: [
     BrowserModule,

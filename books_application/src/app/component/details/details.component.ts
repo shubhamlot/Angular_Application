@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-
+  flag:Boolean
   books:any;
   localCart: Array<any> = []; 
   id:any;
@@ -27,6 +27,7 @@ export class DetailsComponent implements OnInit {
   details(id: string){
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
+      console.log(this.books)
     })
   }
 
@@ -35,25 +36,30 @@ export class DetailsComponent implements OnInit {
     if(this.books.copies < 1) {
       alert("Copies are over!!!!")
     } else {
-      this.bookData.rentBooks(this.books).subscribe(data => {
-          console.log(data)
-         // alert('added to cart')
+
          if(this.bookData.cartlist.length < 3) {
 
-          // TODO: this should be done only after "checkout" button is clicked
-          //  this.books.copies-=1
-          //  this.books.rented+=1
-           
-           this.bookData.cartlist.push(this.books);
-           localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
-           alert(this.books.title + 'added to cart!');
+           this.flag =false
+           for(var i=0;i<this.bookData.cartlist.length;i++){
+             if(this.bookData.cartlist[i]._id == this.id){
+               this.flag = true
+             }
+           }
+           if(this.flag){
+            alert("item already in cart")
+           }else{
+            this.bookData.cartlist.push(this.books);
+            localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
+            alert(this.books.title + 'added to cart!');
+           }
+          
          } else {
            alert('Cart only allows 3 items at a time');
          }
-        },
-        error => console.error("error"+error)
-      )
-    }
+        }
+        // error => console.error("error"+error)
+    //   )
+    // }
   }
 
   returnBook(){
@@ -63,8 +69,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.returnBooks(this.books).subscribe(
       data=>{
         console.log(data)
-        this.books.rented-=1
-        this.books.copies+=1
+        alert("Thank you")
       },
       error=>console.error("error"+error)
      

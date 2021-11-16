@@ -8,6 +8,7 @@ import { LoginComponent } from './component/login/login.component';
 import { RentAbookComponent } from './component/rent-abook/rent-abook.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
+import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent
+  },
+  {
+    path: 'user-profile',
+    component: UserprofileComponent
   },
   {
     path:'',
