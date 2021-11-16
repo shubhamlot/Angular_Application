@@ -3,6 +3,8 @@ import { Books } from 'src/app/Books';
 import { BooksService } from 'src/app/books.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router'
+import { SessionStorageService } from 'angular-web-storage';
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -11,10 +13,12 @@ import { Router } from '@angular/router'
 export class DetailsComponent implements OnInit {
   flag:Boolean
   books:any;
-  localCart: Array<any> = []; 
   id:any;
 
-  constructor(public bookData:BooksService,private route:ActivatedRoute,private router:Router) { }
+  constructor(public bookData:BooksService,
+              private route:ActivatedRoute,
+              private router:Router,
+              private sessionSt : SessionStorageService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -49,7 +53,7 @@ export class DetailsComponent implements OnInit {
             alert("item already in cart")
            }else{
             this.bookData.cartlist.push(this.books);
-            localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
+            this.sessionSt.set('cart', JSON.stringify(this.bookData.cartlist));
             alert(this.books.title + 'added to cart!');
            }
           
