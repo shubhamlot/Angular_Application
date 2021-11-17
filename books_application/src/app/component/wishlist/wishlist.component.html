@@ -1,21 +1,39 @@
-<h1>WishList </h1>
+<h1 class="display-4">WishList </h1>
+<br>
 
-<table>
-    <tr>
-      
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-wrap">
+        <table class="table table-borderless">
+          <br>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="alert" role="alert" *ngFor="let book of books" >
+              <td class="d-flex align-items-center">
+                <div class="row">
+                  <span> {{book.title}} </span>
+                </div>
+              </td>
 
-    </tr>
-    <tr *ngFor="let book of books" >
-      <td>{{book.title}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.category}}</td>
-
-      <td><button class="details" (click) = "removeItem(book)">Remove from Wishlist </button></td>
-
-    </tr>
-    <br>
-    
-  </table>
+              <td>{{book.author}}</td>
+              <td>{{book.category}}</td>  
+              
+              <td> 
+                <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
+              </td>
+            </tr>
+          </tbody>
+            
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

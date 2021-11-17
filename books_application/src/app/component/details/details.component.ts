@@ -40,6 +40,7 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  // wishlist should work only after login
   addWishList(book: Books) {
     this.bookData.wishlist.push(book);
     this.book_id = localStorage.getItem('wishlist');

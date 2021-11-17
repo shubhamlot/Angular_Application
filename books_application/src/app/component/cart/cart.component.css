@@ -141,7 +141,7 @@ input:focus::-webkit-input-placeholder {
     border-color: #000;
     color: white;
     width: 100%;
-    font-size: 0.7rem;
+    font-size: 1rem;
     margin-top: 4vh;
     padding: 1vh;
     border-radius: 0
