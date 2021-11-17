@@ -21,3 +21,48 @@
 </form>
 
 </div> -->
+
+<body class="text-center">
+    <main class="form-signin">
+        <!-- <div class="container"> -->
+            <!-- <form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+            
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
+                
+                <button type="submit" >Submit</button>
+                <button type="button" (click)="resetForm()">Reset</button>
+            
+            </form> -->
+            <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+                <h1 class="h3 mb-3 fw-normal">Register</h1>
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="firstname" id="floatingInput" placeholder="First Name" [(ngModel)]="this.userService.newUser.firstname">
+                    <label for="floatingInput">First Name</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="lastname" id="floatingInput" placeholder="Last Name" [(ngModel)]="this.userService.newUser.lastname">
+                    <label for="floatingInput">Last Name</label>
+                  </div>
+            
+                <div class="form-floating">
+                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.newUser.email">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.newUser.password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                    <button class="btn btn-primary float-start" type="submit">Register</button>
+                    <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+
+                    <a href="/login"> <u>Already Registered? Login</u></a>
+              </form>
+            
+            <!-- </div> -->
+            
+        </main>
+</body>

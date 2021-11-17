@@ -1,17 +1,60 @@
-<h1>Login Form</h1>
+<!-- <div class="container">
 
-<div class="container">
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+    <div class="form-floating">
+      <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.returningUser.email">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.returningUser.password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Sign in</button>
+        <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+    </div>
 
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
-	
-    <button type="submit" >Submit</button>
-    <button type="button" (click)="resetForm()">Reset</button>
+  </form>
 
-</form>
+</div> -->
 
-</div>
+
+
+<body class="text-center">
+    <main class="form-signin">
+        <!-- <div class="container"> -->
+            <!-- <form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+            
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
+                
+                <button type="submit" >Submit</button>
+                <button type="button" (click)="resetForm()">Reset</button>
+            
+            </form> -->
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <h1 class="h3 mb-3 fw-normal">Login</h1>
+            
+                <div class="form-floating">
+                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.returningUser.email">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.returningUser.password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                    <button class="btn btn-primary float-start" type="submit">Sign in</button>
+                    <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+
+                    <a href="/signup"> <u> New User? Register</u></a>
+              </form>
+            
+            <!-- </div> -->
+            
+        </main>
+</body>
