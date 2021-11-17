@@ -17,8 +17,9 @@ type userInfoSchema = {
 })
 export class UserprofileComponent implements OnInit {
 
-  user: userInfoSchema;
+  user: userInfoSchema = {firstname: "", lastname: "", email: "", isadmin: false, rentedbooks: []};
   isLoggedIn: boolean = false;
+  isShow: boolean = false;
   
   constructor(private userService: UserService) { 
   }
@@ -32,11 +33,17 @@ export class UserprofileComponent implements OnInit {
           this.user = result;
           this.isLoggedIn = this.userService.isLoggedIn;
         }else{
-          window.alert('Please Login');
+          // window.alert('Please Login');
         }
       }
     );
 
+  }
+
+  show(){
+    this.isShow = !this.isShow;
+    console.log(this.isShow);
+    
   }
 
 }

@@ -18,6 +18,7 @@ import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
+import { ChangepasswordComponent } from './component/changepassword/changepassword.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UserprofileComponent } from './component/userprofile/userprofile.compon
     CartComponent,
     WishlistComponent,
     MenuComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    ChangepasswordComponent
   ],
   imports: [
     BrowserModule,
