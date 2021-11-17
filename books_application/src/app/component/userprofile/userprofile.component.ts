@@ -10,11 +10,14 @@ import { UserService } from 'src/app/user.service';
 export class UserprofileComponent implements OnInit {
 
   user: User;
+
   isLogedIn: boolean = false;
   constructor(private userService: UserService) { 
   }
 
   ngOnInit(): void {
+
+    
 
     this.userService.userProfileInformation().subscribe(
       result => {
@@ -23,11 +26,13 @@ export class UserprofileComponent implements OnInit {
           this.user = result;
           this.isLogedIn = this.userService.isLogedIn;
         }else{
-          window.alert('Please Login');
+          // window.alert('Please Login');
         }
       }
     );
 
   }
+
+
 
 }
