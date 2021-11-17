@@ -4,6 +4,7 @@ const book = require("../model/Books")
 const user = require("../model/Users")
 const bcrypt = require("bcrypt")
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -172,26 +173,6 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
-/*router.post("/signup", async (req, res) => {
-	var userObj = new user();
-	userObj.firstname = req.body.firstname;
-	userObj.lastname = req.body.lastname;
-	userObj.email = req.body.email;
-	userObj.password = req.body.password;
-
-	var duplicateUser = await user.findOne({ email:userObj.email })
-
-	if(duplicateUser) res.send(false);
-	else {
-        console.log(userObj.email)
-		userObj.save((err, result) => {
-			if(err) res.send(false);
-			else res.send(true);
-		})
-	}
-  //console.log(userObj)
-})*/
-
 router.post(
     '/signup',
     passport.authenticate('signup', { session: false }),
@@ -203,6 +184,39 @@ router.post(
     }
   );
   
+
+router.post(
+	'/login',
+	async (req, res, next) => {
+		passport.authenticate(
+			'login',
+			async (err, user, info) => {
+				try {
+					if(err || !user) {
+						return next('error')
+					}
+					req.login(
+						user,
+						{session: false},
+						async (error) => {
+							if(error) return next(error)
+
+							const body = { email: user.email };
+							const token = jwt.sign({user: body}, 'TOP_SECRET');
+
+							return res.json({token, info});
+						}
+					)
+				} catch(e) {
+					return next(e);
+				}
+
+			}
+		)(req, res, next);
+	}
+)
+
+/*
 router.post("/login", async (req, res) => {
 	var userEmail = req.body.email;
 	var DbPassword = req.body.password;
@@ -221,7 +235,9 @@ router.post("/login", async (req, res) => {
         }
     })
 })
+*/
 
+/*
 //returns user information
 router.get("/user-information/:email", async (req, res) => {
     let email = req.params.email;
@@ -239,11 +255,6 @@ router.get("/user-information/:email", async (req, res) => {
 		res.send(userInfo);
 	}
 });
+*/
 
 module.exports = router
-
-
-
-
-
-
