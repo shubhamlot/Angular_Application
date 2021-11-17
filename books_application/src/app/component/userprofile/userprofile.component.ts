@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/User';
 import { UserService } from 'src/app/user.service';
 
+type userInfoSchema = {
+	firstname: string;
+	lastname: string;
+	email: string;
+	isadmin: boolean;
+	rentedbooks: []
+}
+
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -9,8 +17,8 @@ import { UserService } from 'src/app/user.service';
 })
 export class UserprofileComponent implements OnInit {
 
-  user: User;
-  isLogedIn: boolean = false;
+  user: userInfoSchema;
+  isLoggedIn: boolean = false;
   constructor(private userService: UserService) { 
   }
 
@@ -19,9 +27,9 @@ export class UserprofileComponent implements OnInit {
     this.userService.userProfileInformation().subscribe(
       result => {
         console.log(result);
-        if(this.userService.isLogedIn){
+        if(this.userService.isLoggedIn){
           this.user = result;
-          this.isLogedIn = this.userService.isLogedIn;
+          this.isLoggedIn = this.userService.isLoggedIn;
         }else{
           window.alert('Please Login');
         }

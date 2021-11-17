@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
 			data => {
 				if(data === true) {
 
-					this.userService.isLogedIn = true; //set data in user service
+					this.userService.isLoggedIn = true; //set data in user service
 					this.userService.userEmail = this.email //set email in user email in user service
 
 					this.router.navigate(['/'])
 				} // redirect to the appropriate page
 				else {
-					this.userService.isLogedIn = false
+					this.userService.isLoggedIn = false
 					this.router.navigate(['/login'])
 				}
 			},
