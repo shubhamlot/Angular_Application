@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const book = require("../model/Books")
 const user = require("../model/Users")
+const {body, validationResult} = require('express-validator')
+
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -107,36 +109,70 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
-router.post("/signup", async (req, res) => {
-	var userObj = new user();
-	userObj.firstname = req.body.firstname;
-	userObj.lastname = req.body.lastname;
-	userObj.email = req.body.email;
-	userObj.password = req.body.password;
+router.post("/signup", 
+    body('firstname').isAlpha().isLength({min : 1}),
+    // body('lastname').isAlpha().isLength({min : 0}),
+    body('email').isEmail().normalizeEmail(), 
+    body('password').isLength({min : 5}).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
+    async (req, res) => {
+        const errs = validationResult(req)
+        if(!errs.isEmpty()){
+            return res.status(400).json({
+                success: false,
+                errors: errs.array()
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Sign Up Validated'
+        })
 
-	var duplicateUser = await user.findOne({ email:userObj.email })
+        var userObj = new user();
+        userObj.firstname = req.body.firstname;
+        userObj.lastname = req.body.lastname;
+        userObj.email = req.body.email;
+        userObj.password = req.body.password;
 
-	if(duplicateUser) res.send(false);
-	else {
-		userObj.save((err, result) => {
-			if(err) res.send(false);
-			res.send(true);
-		})
-	}
-})
+        var duplicateUser = await user.findOne({ email:userObj.email })
 
-router.post("/login", async (req, res) => {
-	var userEmail = req.body.email;
-	var userPassword = req.body.password;
+        if(duplicateUser) res.send(false);
+        else {
+            userObj.save((err, result) => {
+                if(err) res.send(false);
+                res.send(true);
+            })
+        }
+    }
+)
 
-	var result = await user.findOne({email: userEmail});
+router.post("/login", 
+    body('email').isEmail().normalizeEmail(), 
+    body('password').isLength({min : 5}).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
+    async (req, res) => {
+        const errs = validationResult(req)
+        if(!errs.isEmpty()){
+            return res.status(400).json({
+                success: false,
+                errors: errs.array()
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Login Validated'
+        })
 
-	if(result === null) res.send(false);
-	else {
-		var logInSuccess = result.password === userPassword;
+        var userEmail = req.body.email;
+        var userPassword = req.body.password;
 
-		res.send(logInSuccess);
-	}
-})
+        var result = await user.findOne({email: userEmail});
+
+        if(result === null) res.send(false);
+        else {
+            var logInSuccess = result.password === userPassword;
+
+            res.send(logInSuccess);
+        }
+    }
+)
 
 module.exports = router
