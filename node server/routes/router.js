@@ -176,11 +176,9 @@ router.post("/signup", async (req, res) => {
 	userObj.lastname = req.body.lastname;
 	userObj.email = req.body.email;
 	userObj.password = req.body.password;
-     console.log(req)
+
 	var duplicateUser = await user.findOne({ email:userObj.email })
-    
-  
-    // console.log(duplicateUser)
+
 	if(duplicateUser) res.send(false);
 	else {
         console.log(userObj.email)
@@ -210,10 +208,16 @@ router.get("/user-information/:email", async (req, res) => {
     let email = req.params.email;
 
     let result = await user.findOne({email: email});
-    console.log(result);
+	
     if(result === null) res.send(false);
 	else {
-		res.send(result);
+		const userInfo = {};
+		userInfo.firstname = result.firstname;
+		userInfo.lastname = result.lastname;
+		userInfo.email = result.email;
+		userInfo.isadmin = result.isadmin;
+		userInfo.rentedbooks = result.rentedbooks;
+		res.send(userInfo);
 	}
 });
 
