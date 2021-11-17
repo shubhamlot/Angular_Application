@@ -88,16 +88,22 @@ export class DetailsComponent implements OnInit {
            }else{
             this.bookData.cartlist.push(this.books);
             this.sessionSt.set('cart', JSON.stringify(this.bookData.cartlist));
-            alert(this.books.title + 'added to cart!');
+            alert(this.books.title + ' added to cart!');
+           
            }
+           
           
          } else {
            alert('Cart only allows 3 items at a time');
+          
+           
          }
+         
         }
         // error => console.error("error"+error)
     //   )
     // }
+    return this.router.navigate(["cart"])
   }
 
   returnBook(){

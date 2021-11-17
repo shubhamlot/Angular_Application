@@ -3,6 +3,8 @@ import { BooksService } from '../../books.service';
 import {Books} from '../../Books'
 import { HttpClient } from '@angular/common/http';
 import { Router,Route } from '@angular/router'
+import { FormBuilder, Validators } from "@angular/forms";
+
 @Component({
   selector: 'app-home-books',
   templateUrl: './home-books.component.html',
@@ -15,24 +17,30 @@ export class HomeBooksComponent implements OnInit {
   books:any
   index:any
   isadmin = true;
+  isValidated = false;
+  categories: any = ['Mystry','Fiction']
   constructor(private bookData:BooksService,private router:Router) { 
    
   }
 
   ngOnInit(): void {
     this.bookList()
+    
   }
 
   bookList(){
     this.bookData.getBooks().subscribe((res)=>{
       this.books = res
+      
     })
   }
 
 
   getBookByCat(cat: string) {
+    console.log(cat)
     this.bookData.getBooksbyCat(cat).subscribe((res)=> {
       this.books = res
+
     })
   }
 
@@ -44,6 +52,24 @@ export class HomeBooksComponent implements OnInit {
       return this.router.navigate([`/${pagename}/${book._id}`])
     }
   }
+
+
+
+
+
+  changeCategory(e:any) {
+    if(this.categories != null){
+      if(e.target.value == "All"){
+        this.bookList()
+      }else{
+        this.getBookByCat(e.target.value)
+      }
+    
+  }
+  }
+
+  
+
 
 
 

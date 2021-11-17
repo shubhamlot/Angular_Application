@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { CreatebookComponent } from './component/createbook/createbook.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { NgForm } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DetailsComponent } from './component/details/details.component';
 import { RentAbookComponent } from './component/rent-abook/rent-abook.component'
 //import { DetailsComponent } from './component/details/details.component'
@@ -19,6 +19,7 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
+
 
 @NgModule({
   declarations: [
@@ -33,15 +34,18 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     CartComponent,
     WishlistComponent,
     MenuComponent,
-    UserprofileComponent
-  ],
+    UserprofileComponent,
+    
+ 
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularWebStorageModule,
 	// NgForm,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

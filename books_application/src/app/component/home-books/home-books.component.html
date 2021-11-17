@@ -26,16 +26,25 @@
 
    <div class="btn-group" role="group" aria-label="Basic example">
 
-    <div class="dropdown">
-      <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Filter By
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-      </ul>
-    </div>
+   
+
+
+
+    
+
+    <form >
+      <select class="btn btn-light dropdown-toggle" formControlName="categories" (change)="changeCategory($event)">
+   
+        <option value="All">All</option>
+        <option *ngFor="let category of categories">
+          {{category}}
+        </option>
+    
+      </select>
+    </form>
+
+
+    
   
       <button *ngIf="this.isadmin==true" type="button"  class="btn btn-info" routerLink="create">Create</button>
     </div>
@@ -45,6 +54,14 @@
 <br/>
 
 
+<div *ngIf="books.length ==0 else DisplayBlock">
+  <div class="alert alert-warning" role="alert">
+    No books Under this category are found!
+  </div>
+</div>
+
+
+<ng-template #DisplayBlock>
 
 <div class="container-md">
   <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
@@ -60,6 +77,13 @@
     </div>
   </div>
 </div>
+
+
+
+</ng-template>
+
+
+
 
 
 </div>
