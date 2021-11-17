@@ -19,6 +19,7 @@ export class UserprofileComponent implements OnInit {
 
   user: userInfoSchema;
   isLoggedIn: boolean = false;
+  
   constructor(private userService: UserService) { 
   }
 
