@@ -137,7 +137,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 .btn {
-    background-color: #000;
+    background-color: rgb(0, 0, 0);
     border-color: #000;
     color: white;
     width: 100%;
