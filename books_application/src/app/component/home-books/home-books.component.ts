@@ -16,7 +16,7 @@ export class HomeBooksComponent implements OnInit {
   book_id:any
   books:any
   index:any
-  isadmin = true;
+  isadmin = false;
   isValidated = false;
   categories: any = ['Mystery','Fiction', 'Educational']
   constructor(private bookData:BooksService,private router:Router) { 

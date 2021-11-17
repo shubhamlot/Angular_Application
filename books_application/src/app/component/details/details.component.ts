@@ -71,7 +71,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
-      this.isadmin=true
+      this.isadmin=false
     
 
     })
