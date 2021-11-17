@@ -1,10 +1,11 @@
-<h1 class="display-4">WishList </h1>
-<br>
 
-<div class="container">
+<br>
+<div class="container-md">
+  <h1 class="display-4">WishList </h1>
+<br>
   <div class="row">
-    <div class="col-md-12">
-      <div class="table-wrap">
+   
+      <!-- <div class="table-wrap"> -->
         <table class="table table-borderless">
           <br>
           <thead>
@@ -17,14 +18,14 @@
           </thead>
           <tbody>
             <tr class="alert" role="alert" *ngFor="let book of books" >
-              <td class="d-flex align-items-center">
-                <div class="row">
-                  <span> {{book.title}} </span>
-                </div>
+              <td class=" align-items-center">
+                
+                  <h5> {{book.title}} </h5>
+                
               </td>
 
-              <td>{{book.author}}</td>
-              <td>{{book.category}}</td>  
+              <td><h5>{{book.author}}</h5></td>
+              <td><h5>{{book.category}}</h5></td>  
               
               <td> 
                 <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
@@ -33,7 +34,7 @@
           </tbody>
             
           </table>
-      </div>
-    </div>
+      <!-- </div> -->
+    <!-- </div> -->
   </div>
 </div>

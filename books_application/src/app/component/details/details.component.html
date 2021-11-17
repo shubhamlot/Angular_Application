@@ -38,8 +38,8 @@
       <ng-template #AdminControl>
       
       <div class="btn-group" role="group" aria-label="admin buttons">
-        <button class="btn btn-primary" >Update</button>
-        <button class="btn btn-danger" >Delete</button>
+        <button class="btn btn-primary" (click)='update(books)'>Update</button>
+        <button class="btn btn-danger" (click)='delete(books)'>Delete</button>
       </div>
     </ng-template>
     </div>

@@ -34,10 +34,17 @@ export class DetailsComponent implements OnInit {
 
   delete(book:Books){
     this.bookData.deleteBook(book).subscribe(
-      data=>{console.log("sucess",data)},
+      data=>{console.log("sucess",data)
+          alert(`${book.title} has been deleted`)},
       error=>console.error('Error',error)
     )
 
+    return this.router.navigate([""])
+
+  }
+
+  update(book:Books){
+    return this.router.navigate([`update/${this.books._id}`])
   }
 
   // wishlist should work only after login
@@ -64,8 +71,8 @@ export class DetailsComponent implements OnInit {
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
-      this.isadmin=false
-    console.log(this.isadmin)
+      this.isadmin=true
+    
 
     })
   }

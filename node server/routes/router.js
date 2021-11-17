@@ -69,6 +69,7 @@ router.post("/addBooks",(req,res)=>{
 router.put("/editBooks/:id",async (req,res)=>{
     var _id = req.params.id
     var data = req.body
+   
     await book.findOneAndUpdate({_id:_id},{ $set:data  })
     res.json({Response:"Status updated"})
 })

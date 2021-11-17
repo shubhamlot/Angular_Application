@@ -41,6 +41,8 @@ deleteBook(book:Books){
 }
 
 updateBook(book:Books){
+  book.copies=1
+  console.log(book)
   return this.http.put(this.BASE_URL+'/editBooks/'+book._id,book)
 }
 
