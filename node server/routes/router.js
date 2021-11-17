@@ -3,6 +3,7 @@ const { listenerCount } = require('../model/Books')
 const book = require("../model/Books")
 const user = require("../model/Users")
 const bcrypt = require("bcrypt")
+const passport = require('passport')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -171,7 +172,7 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
-router.post("/signup", async (req, res) => {
+/*router.post("/signup", async (req, res) => {
 	var userObj = new user();
 	userObj.firstname = req.body.firstname;
 	userObj.lastname = req.body.lastname;
@@ -189,8 +190,19 @@ router.post("/signup", async (req, res) => {
 		})
 	}
   //console.log(userObj)
-})
+})*/
 
+router.post(
+    '/signup',
+    passport.authenticate('signup', { session: false }),
+    async (req, res, next) => {
+      res.json({
+        message: 'Signup successful',
+        user: req.user
+      });
+    }
+  );
+  
 router.post("/login", async (req, res) => {
 	var userEmail = req.body.email;
 	var DbPassword = req.body.password;
@@ -229,3 +241,9 @@ router.get("/user-information/:email", async (req, res) => {
 });
 
 module.exports = router
+
+
+
+
+
+
