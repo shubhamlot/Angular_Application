@@ -1,39 +1,49 @@
-<h1>Books Details</h1>
 
-<table>
-    <tr>
-      
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
-      <th>Remaining Copies</th>
-      <th>Rented Copies</th>
-
-
-      <!-- <th></th>
-      <th></th>
-      <th></th> -->
-
-
-    </tr>
-    <tr >
+<div class="container-md">
+    <!-- <tr>
       <td>{{books.title}}</td>
       <td>{{books.author}}</td>
       <td>{{books.category}}</td>
       <td>{{books.copies}}</td>
       <td>{{books.rented}}</td>
+    </tr> -->
 
+    <br/>
 
-      <!-- <td><button (click)='gotoPage("details",book)'>details</button></td>
-      <td><button (click)='delete(book)'>delete</button></td>
-      <td><button (click)='gotoPage("update",book)'>Update</button></td> -->
+    <div *ngIf="books.copies<1" class="alert alert-danger" role="alert">
+      No copies of the books are available currently!
+    </div>
+    <h1>{{books.title}}</h1>
+
+    <div class="card w-100" style="height: 18rem;">
       
-      
-      
+      <div class="card-body">
+        <h5 class="card-title">{{books.author}}</h5>
+        <p class="card-text text-muted">{{books.category}}</p>
+        
+      </div>
 
-    </tr>
-    <button class="rent" (click)='rentBook()'>Rent this book</button>
-    <button class="return" (click)='returnBook()'>Return this book</button>
+      <div class="btn-group" role="group" aria-label="Basic buttons" *ngIf="isadmin==false else AdminControl" >
 
-    
-  </table>
+        <button *ngIf="books.copies>0 "  class="btn btn-success" (click)='rentBook()'>Add to Cart</button>
+        <!-- <ng-template #desablecart><button class="btn btn-success" disabled>Add to Cart</button></ng-template> -->
+        
+        <button *ngIf="books.copies<1 " type="button" class="btn btn-warning" (click)='returnBook()'>Return this book</button>
+          <!-- <ng-template #desablereturn><button class="btn btn-warning" disabled>Return Book</button></ng-template> -->
+          <button  type="button" class="btn btn-light" (click)='addWishList(books)'>Add to wishlist</button>
+            <!-- <ng-template #desablereturn><button class="btn btn-warning" disabled>Return Book</button></ng-template> -->
+       
+        
+      </div>
+      <ng-template #AdminControl>
+      
+      <div class="btn-group" role="group" aria-label="admin buttons">
+        <button class="btn btn-primary" (click)='update(books)'>Update</button>
+        <button class="btn btn-danger" (click)='delete(books)'>Delete</button>
+      </div>
+    </ng-template>
+    </div>
+
+
+   
+</div>

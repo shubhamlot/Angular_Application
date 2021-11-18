@@ -1,0 +1,97 @@
+<!-- <h1>Cart </h1>
+
+<table class="table">
+    <tr>
+      
+      <th>Title</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>Remaining Copies</th>
+      <th>Rented Copies</th>
+
+      <th></th>
+
+
+    </tr>
+    <tr *ngFor="let book of books" >
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.category}}</td>
+      <td>{{book.copies}}</td>
+      <td>{{book.rented}}</td>
+
+      <td><button class="details" (click) = "removeItem(book)">Remove from Cart</button></td>
+
+    </tr>
+    <br>
+    <button class="details" (click)="checkOut()"> Checkout </button>
+    
+  </table> -->
+
+  <div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-4">Cart</h1>
+                    </div>
+                    <div class="col align-self-center text-end display-6" *ngIf="books">{{books.length}} items</div>
+                    <hr>
+                </div>
+            </div> <!-- title ends-->
+
+            <div class="row"> 
+              <div class="row align-items-center">
+                <div class="col"> <h4> Item </h4> </div>
+                <div class="col"> <h4> Genre</h4> </div>
+                <div class="col"> <h4> Type</h4> </div>
+                <div class="col"></div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="row" *ngFor="let book of books">
+              <div class="row main align-items-center">
+                  <div class="col">
+                    <div class="row"> {{book.title}}</div>
+                    <div class="row text-muted">{{book.author}}</div>
+                  </div>
+                  
+                  <div class="col"> {{book.category}} </div>
+                  <div class="col"> Hardbound </div>
+
+                  <div class="col"> 
+                    <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
+                  </div>
+              </div>
+              <hr>
+            </div>
+
+            
+
+            <div class="back-to-shop"><a routerLink="/">&leftarrow;</a><span class="text-muted display">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h2 class="display-4">Summary</h2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0; font-size: medium;" *ngIf="books">ITEMS : {{books.length}}</div>
+            </div>
+            <form>
+                <p>Delivery Method</p> 
+                <select>
+                    <option class="text-muted">Standard : {{ 50.00 | currency: 'INR' }}</option>
+                    <option class="text-muted">Express : {{ 100.00 | currency: 'INR' }}</option>
+                    <option class="text-muted"> Pickup at nearest library </option>
+                </select>
+                <input type="checkbox" id="tandc" name="tandc">
+                <label for="tandc"> I accept that if there is any damage to book I will be held responsible. </label><br>
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+            </div> <button class="btn align-self-end" (click)="checkOut()">CHECKOUT</button>
+        </div>
+    </div>
+</div>
