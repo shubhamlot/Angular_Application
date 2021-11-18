@@ -5,7 +5,7 @@
 <table class="table table-dark">
     <thead>
       <tr>
-       
+      
         <th scope="col">Book Name</th>
         <th scope="col">Date and Time</th>
         <th scope="col">Status</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let userlog of userlogs ">
-      
+        
         <td>{{userlog.book}}</td>
         <td>{{userlog.dateAndtime}}</td>
         <td *ngIf="userlog.rented==true"><span class="rented"><i>Rented</i></span></td>

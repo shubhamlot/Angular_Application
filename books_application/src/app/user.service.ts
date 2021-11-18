@@ -34,6 +34,7 @@ export class UserService {
 
 	isLoggedIn: boolean = false;//to be used in userprofile
 	userEmail: string;
+	isadmin: boolean
 
 	constructor(private http: HttpClient) {
 		this.newUser = new User("","","","","")
