@@ -18,7 +18,7 @@ export class BooksService {
 
   selectedBooks:Books
   constructor(private http: HttpClient) {
-    this.selectedBooks=new Books("","","","",0,0)
+    this.selectedBooks=new Books("","","","","", 0,0)
     
   }
 

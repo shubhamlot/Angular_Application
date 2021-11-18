@@ -26,6 +26,7 @@ export class CreatebookComponent implements OnInit {
       title:"",
       author:"",
       category:"",
+      isbn: "",
       copies:0,
       rented:0
 

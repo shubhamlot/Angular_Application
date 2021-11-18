@@ -15,7 +15,7 @@ export class RentbookService {
   selectedBooks:Books
   //book: any;
   constructor(private http: HttpClient) {
-    this.selectedBooks=new Books("","","","",0,0)
+    this.selectedBooks=new Books("","","","","", 0,0)
 
   }
 

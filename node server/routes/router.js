@@ -57,10 +57,11 @@ router.post("/addBooks",(req,res)=>{
     var title = req.body.title
     var author = req.body.author
     var category = req.body.category
+    var isbn = req.body.isbn
     var copies = 1
     var rented = 0
 
-    var newbook = new book({title:title,author:author,category:category,copies:copies,rented:rented})
+    var newbook = new book({title:title,author:author,category:category, isbn: isbn, copies:copies,rented:rented})
 
     newbook.save((err)=>{
         if(err){

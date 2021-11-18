@@ -20,10 +20,11 @@
       <div class="card-body">
         <h5 class="card-title">{{books.author}}</h5>
         <p class="card-text text-muted">{{books.category}}</p>
+        <p class="card-text">{{books.ISBN}}</p>
         
       </div>
 
-      <div class="btn-group" role="group" aria-label="Basic buttons" *ngIf="isadmin==false else AdminControl" >
+      <div class="btn-group" role="group" aria-label="Basic buttons" *ngIf="isadmin==true else AdminControl" >
 
         <button *ngIf="books.copies>0 "  class="btn btn-success" (click)='rentBook()'>Add to Cart</button>
         <!-- <ng-template #desablecart><button class="btn btn-success" disabled>Add to Cart</button></ng-template> -->

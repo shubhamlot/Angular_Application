@@ -18,9 +18,9 @@ var bookSchema = new schema({
         type:String,
         required:true
     },
-    ISBN:{
-        type:Number,
-        // required:true
+    isbn:{
+        type:String,
+        //required:true
     },
     
     copies:{

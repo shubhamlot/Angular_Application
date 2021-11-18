@@ -66,6 +66,7 @@
 <div class="container-md">
   <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
     <div class="col" *ngFor="let book of books">
+      <img class = "card-img-top" src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-L.jpg" height="400"/>
       <div class="p-3 border bg-light">
         <div class="badge bg-success" *ngIf="book.copies>0 else elseBlock">Available!</div>
         <ng-template #elseBlock><div class="badge bg-danger">Not Available!</div></ng-template>
