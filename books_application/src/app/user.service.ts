@@ -33,7 +33,8 @@ export class UserService {
 	userProfileInformation(){
 		console.log(this.userEmail);
 		console.log(this.isLogedIn);
-		return this.http.get<User>(this.BASE_URL+'/user-information/'+this.userEmail);
+		return this.http.get<User>(this.BASE_URL+'/user-information/'+"admin@admin.com");
+
 	}
 
 }

@@ -213,6 +213,7 @@ router.post("/signup",
     body('password').isLength({min : 5}).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
     async (req, res) => {
         const errs = validationResult(req)
+        console.log(errs.array())
         if(!errs.isEmpty()){
             return res.status(400).json({
                 success: false,
@@ -229,14 +230,14 @@ router.post("/signup",
         userObj.lastname = req.body.lastname;
         userObj.email = req.body.email;
         userObj.password = req.body.password;
-
+        console.log(userObj)
         var duplicateUser = await user.findOne({ email:userObj.email })
 
         if(duplicateUser) res.send(false);
         else {
             userObj.save((err, result) => {
                 if(err) res.send(false);
-                res.send(true);
+                else res.send(true);
             })
         }
     }

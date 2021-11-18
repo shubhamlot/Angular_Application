@@ -12,25 +12,25 @@ export class UserprofileComponent implements OnInit {
   user: User;
 
   isLogedIn: boolean = false;
-  constructor(private userService: UserService) { 
+  constructor(public userService: UserService) { 
+
   }
 
   ngOnInit(): void {
+    this.getUserDetails()
+  }
 
-    
 
+  getUserDetails(){
     this.userService.userProfileInformation().subscribe(
       result => {
-        console.log(result);
-        if(this.userService.isLogedIn){
+        // console.log(result);
+        if(!this.userService.isLogedIn){
           this.user = result;
           this.isLogedIn = this.userService.isLogedIn;
-        }else{
-          // window.alert('Please Login');
         }
       }
     );
-
   }
 
 

@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
 	}
 
 	onSubmit(): void {
+	
 		this.userService.signup(this.userService.newUser).subscribe(
 			data => {
 				if(data === true) this.router.navigate(['/']) // redirect to the appropriate page
