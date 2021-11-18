@@ -58,6 +58,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'rent-abook',
+    component: RentAbookComponent
+  },
+  {
     path:'',
     component:HomeBooksComponent,
     canActivate: [AuthGuard]
