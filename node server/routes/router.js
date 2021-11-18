@@ -238,7 +238,7 @@ router.post(
 							if(error) return next(error)
 
 							const body = { email: user.email };
-							const token = jwt.sign({user: body}, 'TOP_SECRET');
+							const token = jwt.sign(body, 'TOP_SECRET');
 
 							return res.json({token, info});
 						}
@@ -273,10 +273,10 @@ router.post("/login", async (req, res) => {
 })
 */
 
-/*
+
 //returns user information
-router.get("/user-information/:email", async (req, res) => {
-    let email = req.params.email;
+router.get("/user-information", verifyToken, async (req, res) => {
+    let email = req.body.email;
 
     let result = await user.findOne({email: email});
 	
@@ -291,7 +291,6 @@ router.get("/user-information/:email", async (req, res) => {
 		res.send(userInfo);
 	}
 });
-*/
 
 
 router.get("/userlog",async(req,res)=>{
@@ -304,4 +303,30 @@ router.get("/userlog",async(req,res)=>{
         }
     })
 })
+
+
+//verify token middleware
+function verifyToken(req, res, next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unauthorized request')
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if(token === 'null'){
+        return res.status(401).send('Unauthorized request')
+    }
+    let payload = jwt.verify(token, 'TOP_SECRET')
+    if(!payload){
+        return res.status(401).send('Unauthorized request')
+    }
+    req.body.email = payload.email;
+    // console.log(payload.email)
+    // console.log(req.email)
+    // console.log(req.body.email);
+    next()
+}
+
+
+
+
+
 module.exports = router

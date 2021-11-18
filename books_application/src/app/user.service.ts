@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from './User'
+import { Router } from '@angular/router';
 
 type signupSchema = {
 	firstname: string;
@@ -35,7 +36,7 @@ export class UserService {
 	isLoggedIn: boolean = false;//to be used in userprofile
 	userEmail: string;
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private _router: Router) {
 		this.newUser = new User("","","","","")
 		this.returningUser = {email: "", password: ""}
 	}
@@ -50,7 +51,23 @@ export class UserService {
 
 	//retrive user profile data
 	userProfileInformation(){
-		return this.http.get<userInfoSchema>(this.BASE_URL+'/user-information/'+this.userEmail);
+		return this.http.get<userInfoSchema>(this.BASE_URL+'/user-information');
+	}
+
+
+
+	//below methods are for autherization 
+	loggedIn(){
+		return !!localStorage.getItem('token')
+	}
+
+	getToken(){
+		return localStorage.getItem('token')
+	}
+
+	logOut(){
+		localStorage.removeItem('token')
+		this._router.navigate(['/login'])
 	}
 
 }

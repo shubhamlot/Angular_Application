@@ -26,17 +26,17 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		this.email = this.userService.returningUser.email; //catch user email to use in user profile
+		// this.email = this.userService.returningUser.email; //catch user email to use in user profile
 
 		this.userService.login(this.userService.returningUser).subscribe(
 			data => {
 				
 				if(data) {
-					console.log(data.token);
+					
 				 	localStorage.setItem('token', data.token)
 
 					this.userService.isLoggedIn = true; //set data in user service
-					this.userService.userEmail = this.email //set email in user email in user service
+					// this.userService.userEmail = this.email //set email in user email in user service
 
 					this.router.navigate(['/'])
 				} // redirect to the appropriate page

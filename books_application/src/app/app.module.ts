@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeBooksComponent } from './component/home-books/home-books.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CreatebookComponent } from './component/createbook/createbook.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { NgForm } from '@angular/forms';
@@ -21,6 +21,8 @@ import { MenuComponent } from './component/menu/menu.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { ChangepasswordComponent } from './component/changepassword/changepassword.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
+import { AuthGuard } from './guard/auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 
@@ -50,7 +52,12 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     FormsModule,
     ReactiveFormsModule 
   ],
-  providers: [],
+  providers: [AuthGuard,
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
