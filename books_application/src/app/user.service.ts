@@ -85,5 +85,8 @@ export class UserService {
 		return this.http.post<any>(this.BASE_URL+'/change-password', changepwd)
 	}
 
+	changeProfile(userInfo:{firstname:string, lastname:string}){	
+		return this.http.put<userInfoSchema>(this.BASE_URL+'/change-profile', userInfo)
+	}
 }
 

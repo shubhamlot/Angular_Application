@@ -339,6 +339,22 @@ router.post('/change-password', verifyToken,async (req, res)=>{
 
 })
 
+router.put('/change-profile', verifyToken,async (req, res) => {
+    let email = req.body.email
+    let firstname = req.body.firstname
+    let lastname = req.body.lastname
+
+    await user.findOneAndUpdate({ email:email }, {firstname: firstname, lastname: lastname}, 
+        (err, result) => {
+            if(err){
+                console.log(err)
+                return res.send('sorry! Not able to update, try again')
+            }else{
+                return res.json(result)
+            }
+        }).clone();
+})
+
 //verify token middleware
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

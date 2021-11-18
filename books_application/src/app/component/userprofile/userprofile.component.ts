@@ -22,6 +22,9 @@ export class UserprofileComponent implements OnInit {
   user: userInfoSchema = {firstname: "", lastname: "", email: "", isadmin: false, rentedbooks: []};
   isLoggedIn: boolean = false;
   isShow: boolean = false;
+  showEdit: boolean = false;
+  firstname: string;
+  lastname: string;
   
   constructor(private userService: UserService, private _router: Router) { 
   }
@@ -42,7 +45,6 @@ export class UserprofileComponent implements OnInit {
         }
         
       },
-
       err => {
           if(err instanceof HttpErrorResponse){
             if(err.status === 401){
@@ -58,10 +60,25 @@ export class UserprofileComponent implements OnInit {
     );
   }
 
+  changeProfile(){
+    let userInfo = {firstname:this.firstname, lastname:this.lastname}
+    this.userService.changeProfile(userInfo).subscribe(
+      res => {
+        this.user = res
+        window.alert('profile has been updated! please refresh..')
+      },
+      err => console.log(err)
+    )
+    this.showEditor()
+  }
+
   show(){
     this.isShow = !this.isShow;
     console.log(this.isShow);
-    
+  }
+
+  showEditor(){
+   this.showEdit= !this.showEdit;
   }
 
   Logout(){
