@@ -13,15 +13,18 @@ export class UserlogComponent implements OnInit {
   constructor(public rentservice:RentbookService,private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
+    this.showlog()
   }
 
   showlog(){
     this.rentservice.showuserlog().subscribe(data=>{
       this.userlogs=data
-      console.log(this.userlogs)
+      console.log(data)
     },
     error=>console.error("error"+error)
     )
+
+
   }
 
 }

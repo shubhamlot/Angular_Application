@@ -6,6 +6,7 @@ import {catchError, tap, map} from 'rxjs/operators';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +27,8 @@ getBooks() {
     return this.http.get(this.BASE_URL+'/getBooks')
 
   }
+
+
 
   getBooksbyCat(cat: string) {
     return this.http.get(this.BASE_URL +'/getBooksbyCat/'+cat)

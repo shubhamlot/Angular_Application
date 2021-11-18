@@ -93,24 +93,14 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
         console.log("hi")
         await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
         await user.findOneAndUpdate({_id:userid},{$push:{rentedbooks:bookid}}).then(data=>{
+            
+            var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:true})
+            console.log(ulog)
+            ulog.save()
             res.json({Response:"Status updated"})
         })
         
        
-    // }else{
-    //     res.json({Response:"copies are over"})
-    // }
-
-    //add book to userlog
-    var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
-    ulog.save((err)=>{
-        if(err){
-            res.json({Response:"error in saving"})
-        }
-        else{
-            res.json({Response:"data is saved"})
-        }
-    })
     
 })
 
@@ -160,7 +150,10 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
       
           await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
           user.findOneAndUpdate({_id:userid},{$set:{rentedbooks:list}},(err,data)=>{
-             res.json({Response:"Status updated"})
+            var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:false})
+            console.log(ulog)
+            ulog.save()
+            res.json({Response:"Status updated"})
          })
         
 
@@ -168,28 +161,7 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     }
     })
    
-    // console.log(flag)
-    // if(rented<0){
-    //     res.json({Response:"More rented then total"})
-    // }else{
-      
-    //     copies+=1
-    //     rented-=1
-    //     await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
-    //     res.json({Response:"Status updated"})
-    // }
-
-    
-    //adds book return log to userlog
-    // var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
-    // ulog.save((err)=>{
-    //     if(err){
-    //         res.json({Response:"error in saving"})
-    //     }
-    //     else{
-    //         res.json({Response:"data is saved"})
-    //     }
-    // })
+ 
     
 })
 
@@ -296,10 +268,11 @@ router.get("/user-information/:email", async (req, res) => {
 
 router.get("/userlog",async(req,res)=>{
     userlog.find((err,data)=>{
-        console.log(data)
+        // console.log(data)
         if(err){
             res.json({Response:"No data found"})
         }else{
+            
             res.json(data)
         }
     })
