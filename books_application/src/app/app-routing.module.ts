@@ -50,6 +50,10 @@ const routes: Routes = [
     component:UserlogComponent
   },
   {
+    path: 'rent-abook',
+    component: RentAbookComponent
+  },
+  {
     path:'',
     component:HomeBooksComponent
   }
