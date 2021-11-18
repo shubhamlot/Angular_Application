@@ -33,7 +33,8 @@ import { UserprofileComponent } from './component/userprofile/userprofile.compon
     CartComponent,
     WishlistComponent,
     MenuComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    UserlogComponent
   ],
   imports: [
     BrowserModule,

@@ -37,11 +37,12 @@ export class RentAbookComponent implements OnInit {
   }
   
   displayRented(){
-    this.rentservice.displayrentedbooks().subscribe(data=>{
-      this.book=data
-    },
-    error=>console.error("error"+error)
+    //error over here
+    // this.rentservice.displayrentedbooks().subscribe(data=>{
+    //   this.book=data
+    // },
+    // error=>console.error("error"+error)
 
-    )
+    // )
   }
 }
