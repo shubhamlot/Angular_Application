@@ -18,8 +18,9 @@ export class RentAbookComponent implements OnInit {
   }
 
   loadLibrary() {
-    this.rentservice.displayrentedbooks(this.user).subscribe(data=>{
-      this.books=data
+    this.rentservice.displayrentedbooks().subscribe(data=>{
+      this.books = data
+      console.log(this.books)
     }, 
     error=>console.error("error"+error))
   } 

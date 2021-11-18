@@ -83,21 +83,21 @@ router.put("/editBooks/:id",async (req,res)=>{
     res.json({Response:"Status updated"})
 })
 
-router.put("/:userid/rentBooks/:id",async (req,res)=>{
+router.put("/rentBooks/:id", verifyToken,async (req,res)=>{
     var bookid = req.params.id
     var copies = req.body.copies
     var rented = req.body.rented
-    var userid = req.params.userid
+    var email = req.body.email
     // if(copies>0){
         copies-=1
         rented+=1
       
         await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} }).then(data=>{
-            var ulog=new userlog({userid:userid,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
+            var ulog=new userlog({email:email,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
             console.log(ulog)
             ulog.save()
         })
-        await user.findOneAndUpdate({_id:userid},{$push:{rentedbooks:bookid}}).then(data=>{
+        await user.findOneAndUpdate({email: email},{$push:{rentedbooks:bookid}}).then(data=>{
             
             res.json({Response:"Status updated"})
         })
@@ -107,14 +107,25 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
 })
 
 
-router.get("/:user/rentedbooks",async (req,res)=>{
-    var userid = req.params.user
-    user.find({_id:userid},(err,data)=>{
+router.get("/rentedbooks", verifyToken,async (req,res)=>{
+    var email = req.body.email
+    user.find({email: email},(err,data)=>{
         if(err){
             res.json({Response:"No data is found"})
         }else{
+            // console.log(data)
+            // let rented_books = []
+            // for(b of data[0].rentedbooks){
+            //     let result = book.findOne({"_id":'618fd07ebdc91f235998e2de'})
+            //     let book_info = {}
+            //     book_info.title =  result.title
+            //     book_info.author = result.author
+            //     book_info.category = result.category
+            //     rented_books.push(result)
+            // }
+            // console.log(rented_books)
+            // console.log(book.find({"_id":{"$in":data[0].rentedbooks}}))
             res.json(data[0].rentedbooks)
-         
         }
     })
 
