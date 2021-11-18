@@ -44,7 +44,7 @@ export class UserService {
 	isadmin:boolean =false
 	userID:string =""
 	userEmail: string;
-	isadmin: boolean
+	// isadmin: boolean
 
 	constructor(private http: HttpClient, private _router: Router) {
 		this.newUser = new User("","","","","")

@@ -217,6 +217,7 @@ router.post(
 							const token = jwt.sign(body, 'TOP_SECRET');
                             userid = user._id
                             isadmin = user.isadmin
+                            // console.log(isadmin)
 							return res.json({token, info, userid, isadmin});
 						}
 					)

@@ -16,15 +16,18 @@ import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   {
     path:'update/:id',
-    component:UpdatebookComponent
+    component:UpdatebookComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'create',
-    component:CreatebookComponent
+    component:CreatebookComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'details/:id',
-    component:DetailsComponent
+    component:DetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
 	path:'signup',
@@ -51,11 +54,13 @@ const routes: Routes = [
   },
   {
     path:'userlog',
-    component:UserlogComponent
+    component:UserlogComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'',
-    component:HomeBooksComponent
+    component:HomeBooksComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

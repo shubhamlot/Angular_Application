@@ -11,6 +11,7 @@ export class MenuComponent implements OnInit {
   isadmin:Boolean = false
   constructor(private userservice:UserService) { 
     this.isadmin = userservice.isadmin
+    console.log(this.isadmin)
   }
 
   ngOnInit(): void {

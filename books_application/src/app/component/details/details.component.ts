@@ -24,10 +24,10 @@ export class DetailsComponent implements OnInit {
               private sessionSt : SessionStorageService,
               private userservice : UserService) { 
                 this.isadmin = userservice.isadmin
+                console.log(this.isadmin)
               }
 
   ngOnInit(): void {
-    this.isadmin=true
     this.id = this.route.snapshot.paramMap.get('id')
     
     this.details(this.id)
@@ -77,7 +77,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
-      
+      this.isadmin=false
     
 
     })

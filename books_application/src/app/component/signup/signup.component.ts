@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
 		this.userService.signup(this.userService.newUser).subscribe(
 			data => {
 				if(data === true) this.router.navigate(['/']) // redirect to the appropriate page
-				else this.router.navigate(['/signup'])
+				else this.router.navigate(['/'])
 			},
 			error => {
 				console.log(error)

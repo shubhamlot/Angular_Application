@@ -21,10 +21,7 @@ export class HomeBooksComponent implements OnInit {
   isadmin = true;
   isValidated = false;
   categories: any = ['Mystery','Fiction', 'Educational']
-<<<<<<< HEAD
-=======
  
->>>>>>> userprofile
   
   constructor(private bookData:BooksService,private router:Router,private userservice:UserService) { 
    this.isadmin = this.userservice.isadmin
