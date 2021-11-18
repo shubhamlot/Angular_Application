@@ -25,7 +25,11 @@ export class UserprofileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUserDetails()
+  }
 
+
+  getUserDetails(){
     this.userService.userProfileInformation().subscribe(
       result => {
         console.log(result);
@@ -37,7 +41,6 @@ export class UserprofileComponent implements OnInit {
         }
       }
     );
-
   }
 
   show(){
@@ -45,6 +48,7 @@ export class UserprofileComponent implements OnInit {
     console.log(this.isShow);
     
   }
+
 
 }
 //comment

@@ -5,6 +5,10 @@ const mongoose = require('mongoose')
 const dotEnv = require('dotenv')
 const cors = require('cors');
 
+const passport = require('passport')
+app.use(passport.initialize());
+require('./auth/auth')(passport)
+
 dotEnv.config()
 app.use(cors())
 // app.get('/',(req,res)=>{
@@ -21,11 +25,14 @@ app.listen(process.env.PORT,()=>{
 })
 
 const routers = require('./routes/router')
+const authRoutes = require('./routes/authRoutes')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
+app.use('/routes', routers)
+app.use('/routes', passport.authenticate('jwt', {session:false}), authRoutes)
 
-app.use('/routes',routers)
 mongoose.connect(process.env.DATABASE_URL)
 .then(()=>{console.log('connected to db')})
 .catch((err)=>{console.log(err)})

@@ -8,17 +8,21 @@ import {HttpClientModule} from '@angular/common/http';
 import { CreatebookComponent } from './component/createbook/createbook.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { NgForm } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DetailsComponent } from './component/details/details.component';
 import { RentAbookComponent } from './component/rent-abook/rent-abook.component'
-// import { DetailsComponent } from './component/details/details.component'
+//import { DetailsComponent } from './component/details/details.component'
 import { SignupComponent } from './component/signup/signup.component';
 import { LoginComponent } from './component/login/login.component';
 import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { UserlogComponent } from './component/userlog/userlog.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { ChangepasswordComponent } from './component/changepassword/changepassword.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
+
+
 
 @NgModule({
   declarations: [
@@ -34,16 +38,21 @@ import { ChangepasswordComponent } from './component/changepassword/changepasswo
     WishlistComponent,
     MenuComponent,
     UserprofileComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    UserlogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularWebStorageModule,
 	// NgForm,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

@@ -41,6 +41,13 @@ userSchema.pre('save',async function (next){
     }catch(error){
         next(error)
     }
-})
+});
+userSchema.methods.isValidPassword=async function(password){
+    const users = this;
+    const compare = await bcrypt.compare(password,users.password);
+    return compare;
+}
 var user = mongoose.model('User',userSchema,'users')
 module.exports = user
+
+

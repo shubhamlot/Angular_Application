@@ -45,7 +45,7 @@ export class UserService {
 	}
 
 	login(user:loginSchema){
-		return this.http.post(this.BASE_URL+'/login', user)
+		return this.http.post<{token:string, info:{}}>(this.BASE_URL+'/login', user)
 	}
 
 	//retrive user profile data

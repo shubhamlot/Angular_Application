@@ -3,6 +3,8 @@ import { Books } from 'src/app/Books';
 import { BooksService } from 'src/app/books.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router'
+import { SessionStorageService } from 'angular-web-storage';
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -11,10 +13,14 @@ import { Router } from '@angular/router'
 export class DetailsComponent implements OnInit {
   flag:Boolean
   books:any;
-  localCart: Array<any> = []; 
   id:any;
+  public isadmin:Boolean
+  book_id:any
 
-  constructor(public bookData:BooksService,private route:ActivatedRoute,private router:Router) { }
+  constructor(public bookData:BooksService,
+              private route:ActivatedRoute,
+              private router:Router,
+              private sessionSt : SessionStorageService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -22,12 +28,52 @@ export class DetailsComponent implements OnInit {
     // Why call this function here?
     this.rentBook()
     this.returnBook()
+ 
+    
+  }
+
+  delete(book:Books){
+    this.bookData.deleteBook(book).subscribe(
+      data=>{console.log("sucess",data)
+          alert(`${book.title} has been deleted`)},
+      error=>console.error('Error',error)
+    )
+
+    return this.router.navigate([""])
+
+  }
+
+  update(book:Books){
+    return this.router.navigate([`update/${this.books._id}`])
+  }
+
+  // wishlist should work only after login
+  addWishList(book: Books) {
+    this.bookData.wishlist.push(book);
+    this.book_id = localStorage.getItem('wishlist');
+    this.book_id = JSON.parse(this.book_id)
+   
+    this.flag =false
+    for(var i=0;i<this.book_id.length;i++){
+      if(this.book_id[i]._id == book._id){
+        this.flag = true
+      }
+    }
+    if(this.flag){
+      alert("Item already in wishlist")
+    }else{
+      localStorage.setItem('wishlist', JSON.stringify(this.bookData.wishlist));
+      alert(`${book.title} has been added to wishlist`)
+    }
   }
 
   details(id: string){
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
+      this.isadmin=false
+    
+
     })
   }
 
@@ -49,17 +95,23 @@ export class DetailsComponent implements OnInit {
             alert("item already in cart")
            }else{
             this.bookData.cartlist.push(this.books);
-            localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
-            alert(this.books.title + 'added to cart!');
+            this.sessionSt.set('cart', JSON.stringify(this.bookData.cartlist));
+            alert(this.books.title + ' added to cart!');
+           
            }
+           
           
          } else {
            alert('Cart only allows 3 items at a time');
+          
+           
          }
+         
         }
         // error => console.error("error"+error)
     //   )
     // }
+    return this.router.navigate(["cart"])
   }
 
   returnBook(){
@@ -70,9 +122,14 @@ export class DetailsComponent implements OnInit {
       data=>{
         console.log(data)
         alert("Thank you")
+        return this.router.navigate([""])
       },
-      error=>console.error("error"+error)
-     
+      error=>{
+        alert("user dont have the rented copy")
+        console.error("error"+error)
+        return this.router.navigate([""])
+      }
+        
     )
     
     }

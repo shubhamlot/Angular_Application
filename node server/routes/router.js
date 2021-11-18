@@ -1,8 +1,14 @@
 const router = require('express').Router()
+const { now } = require('mongoose')
 const { listenerCount } = require('../model/Books')
 const book = require("../model/Books")
+const userlog = require('../model/Userlog')
 const user = require("../model/Users")
+const {body, validationResult} = require('express-validator')
+
 const bcrypt = require("bcrypt")
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -36,7 +42,7 @@ router.get("/getBooks/:id",(req,res)=>{
 })
 
 router.get("/getBooksbyCat/:category", (req, res) => {
-    book.find({ category: req.params.category }, (err, data) => {
+    book.find({category: req.params.category }, (err, data) => {
         if (err) {
             res.json({ Response: "err no data found" })
         }
@@ -70,6 +76,7 @@ router.post("/addBooks",(req,res)=>{
 router.put("/editBooks/:id",async (req,res)=>{
     var _id = req.params.id
     var data = req.body
+   
     await book.findOneAndUpdate({_id:_id},{ $set:data  })
     res.json({Response:"Status updated"})
 })
@@ -93,6 +100,17 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
     // }else{
     //     res.json({Response:"copies are over"})
     // }
+
+    //add book to userlog
+    var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
+    ulog.save((err)=>{
+        if(err){
+            res.json({Response:"error in saving"})
+        }
+        else{
+            res.json({Response:"data is saved"})
+        }
+    })
     
 })
 
@@ -104,9 +122,11 @@ router.get("/:user/rentedbooks",async (req,res)=>{
             res.json({Response:"No data is found"})
         }else{
             res.json(data[0].rentedbooks)
-            // res.json(data)
+         
         }
     })
+
+
 })
 
 router.put("/:user/returnBooks/:id",async (req,res)=>{
@@ -116,8 +136,14 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     var rented = req.body.rented
     var copies = req.body.copies
     var list =[]
-
+    
     user.find({_id:userid}, async (err,data)  =>{
+     
+    
+        if(!data[0].rentedbooks.includes(bookid)){
+            
+            res.send("user dont have the book")
+        }else{
         flag = data[0].rentedbooks.includes(bookid)
         
         if(flag){
@@ -132,14 +158,14 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
             
         }
       
-        
           await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
           user.findOneAndUpdate({_id:userid},{$set:{rentedbooks:list}},(err,data)=>{
-             console.log(data)
              res.json({Response:"Status updated"})
          })
         
+
         }
+    }
     })
    
     // console.log(flag)
@@ -152,6 +178,18 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
     //     await book.findOneAndUpdate({_id:_id},{ $set:{copies:copies,rented:rented} })
     //     res.json({Response:"Status updated"})
     // }
+
+    
+    //adds book return log to userlog
+    // var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
+    // ulog.save((err)=>{
+    //     if(err){
+    //         res.json({Response:"error in saving"})
+    //     }
+    //     else{
+    //         res.json({Response:"data is saved"})
+    //     }
+    // })
     
 })
 
@@ -171,26 +209,50 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
-router.post("/signup", async (req, res) => {
-	var userObj = new user();
-	userObj.firstname = req.body.firstname;
-	userObj.lastname = req.body.lastname;
-	userObj.email = req.body.email;
-	userObj.password = req.body.password;
+router.post(
+    '/signup',
+    passport.authenticate('signup', { session: false }),
+    async (req, res, next) => {
+      res.json({
+        message: 'Signup successful',
+        user: req.user
+      });
+    }
+  );
+  
 
-	var duplicateUser = await user.findOne({ email:userObj.email })
+router.post(
+	'/login',
+	async (req, res, next) => {
+		passport.authenticate(
+			'login',
+			async (err, user, info) => {
+				try {
+					if(err || !user) {
+						return next('error')
+					}
+					req.login(
+						user,
+						{session: false},
+						async (error) => {
+							if(error) return next(error)
 
-	if(duplicateUser) res.send(false);
-	else {
-        console.log(userObj.email)
-		userObj.save((err, result) => {
-			if(err) res.send(false);
-			else res.send(true);
-		})
+							const body = { email: user.email };
+							const token = jwt.sign({user: body}, 'TOP_SECRET');
+
+							return res.json({token, info});
+						}
+					)
+				} catch(e) {
+					return next(e);
+				}
+
+			}
+		)(req, res, next);
 	}
-  //console.log(userObj)
-})
+)
 
+/*
 router.post("/login", async (req, res) => {
 	var userEmail = req.body.email;
 	var DbPassword = req.body.password;
@@ -209,7 +271,9 @@ router.post("/login", async (req, res) => {
         }
     })
 })
+*/
 
+/*
 //returns user information
 router.get("/user-information/:email", async (req, res) => {
     let email = req.params.email;
@@ -227,5 +291,17 @@ router.get("/user-information/:email", async (req, res) => {
 		res.send(userInfo);
 	}
 });
+*/
 
+
+router.get("/userlog",async(req,res)=>{
+    userlog.find((err,data)=>{
+        console.log(data)
+        if(err){
+            res.json({Response:"No data found"})
+        }else{
+            res.json(data)
+        }
+    })
+})
 module.exports = router
