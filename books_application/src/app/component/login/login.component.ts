@@ -34,15 +34,13 @@ export class LoginComponent implements OnInit {
 				if(data) {
 					
 				 	localStorage.setItem('token', data.token)
-					
-					this.userService.isLoggedIn = true; //set data in user service
 					this.userService.isadmin = data.isadmin
 					this.userService.userID = data.userid
 					// this.userService.userEmail = this.email //set email in user email in user service
 					this.router.navigate(['/'])
 				} // redirect to the appropriate page
 				else {
-					this.userService.isLoggedIn = false
+					
 					this.router.navigate(['/login'])
 				}
 			},

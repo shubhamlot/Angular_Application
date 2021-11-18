@@ -40,7 +40,6 @@ export class UserprofileComponent implements OnInit {
        
         if(this.userService.loggedIn()){
           this.user = result;
-          this.isLoggedIn = this.userService.isLoggedIn;
           // console.log(this.user);
         }
         

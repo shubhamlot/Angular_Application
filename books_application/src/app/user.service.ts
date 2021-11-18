@@ -39,8 +39,6 @@ export class UserService {
 
 	newUser: signupSchema;
 	returningUser:loginSchema;
-
-	isLoggedIn: boolean = false;//to be used in userprofile
 	isadmin:boolean =false
 	userID:string =""
 	userEmail: string;

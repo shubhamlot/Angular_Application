@@ -9,7 +9,7 @@ import { UserService } from 'src/app/user.service';
 export class MenuComponent implements OnInit {
 
   isadmin:Boolean = false
-  constructor(private userservice:UserService) { 
+  constructor(public userservice:UserService) { 
     this.isadmin = userservice.isadmin
     console.log(this.isadmin)
   }

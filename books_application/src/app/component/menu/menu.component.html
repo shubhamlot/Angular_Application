@@ -7,24 +7,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link"   routerLink="">Home</a>
+          <a class="nav-link"   routerLink="" *ngIf="userservice.loggedIn()">Home</a>
         </li> 
        <li class="nav-item">
-          <a class="nav-link" routerLink="signup">Register</a>
+          <a class="nav-link" routerLink="signup" *ngIf="!userservice.loggedIn()">Register</a>
         </li> 
          <li class="nav-item dropdown">
-          <a class="nav-link" routerLink="login">Login</a>
+          <a class="nav-link" routerLink="login" *ngIf="!userservice.loggedIn()">Login</a>
         </li>
 
       <li class="nav-item dropdown">
-          <a class="nav-link"  routerLink="cart">Cart</a>
+          <a class="nav-link"  routerLink="cart"  *ngIf="userservice.loggedIn()">Cart</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link"  routerLink="rent-abook">Library</a>
+          <a class="nav-link"  routerLink="rent-abook"  *ngIf="userservice.loggedIn()">Library</a>
         </li>
        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown"  *ngIf="userservice.loggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
             Profile
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink" >
