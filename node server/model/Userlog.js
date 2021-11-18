@@ -13,6 +13,10 @@ var userLogSchema= new schema({
         type:schema.Types.ObjectId,
         ref:book
     },
+    book:{
+        type:String,
+        required:true
+    },
 
     dateAndtime:{
         type:Date,

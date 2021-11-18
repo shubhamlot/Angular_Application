@@ -91,12 +91,13 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
         copies-=1
         rented+=1
         console.log("hi")
-        await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
-        await user.findOneAndUpdate({_id:userid},{$push:{rentedbooks:bookid}}).then(data=>{
-            
-            var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:true})
+        await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} }).then(data=>{
+            var ulog=new userlog({userid:userid,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
             console.log(ulog)
             ulog.save()
+        })
+        await user.findOneAndUpdate({_id:userid},{$push:{rentedbooks:bookid}}).then(data=>{
+            
             res.json({Response:"Status updated"})
         })
         
@@ -148,11 +149,12 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
             
         }
       
-          await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} })
-          user.findOneAndUpdate({_id:userid},{$set:{rentedbooks:list}},(err,data)=>{
-            var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:false})
+          await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} }).then(d=>{
+            var ulog=new userlog({userid:userid,bookid:bookid,book:d.title,dateAndtime:now(),rented:false})
             console.log(ulog)
             ulog.save()
+          })
+          user.findOneAndUpdate({_id:userid},{$set:{rentedbooks:list}},(err,data)=>{
             res.json({Response:"Status updated"})
          })
         

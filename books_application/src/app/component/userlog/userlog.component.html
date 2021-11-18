@@ -1,18 +1,18 @@
 <table class="table table-condensed">
     <tr>
        
-        <th>Book Id</th>
-        <th>Date</th>
+        <th>Book Name</th>
+        <th>Date Time</th>
         <th>Status </th>
 
     </tr>
 
     <tr *ngFor="let userlog of userlogs">
         <!-- <td>{{userlog.userid}}</td> -->
-        <!-- <td>{{userlog.bookid}}</td> -->
-        <!-- <td>{{userlog.dateAndtime}}</td> -->
-        <td *ngIf="userlog.rented==true"><span class="rented">Rented</span></td>
-        <td *ngIf="userlog.rented==false"><span class="returned">Returned</span></td>
+        <td>{{userlog.book}}</td>
+        <td>{{userlog.dateAndtime}}</td>
+        <td *ngIf="userlog.rented==true"><span class="rented"><i>Rented</i></span></td>
+        <td *ngIf="userlog.rented==false"><span class="returned"><i>Returned</i></span></td>
 
     </tr>
 </table>
