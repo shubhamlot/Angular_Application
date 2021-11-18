@@ -29,6 +29,7 @@ type userInfoSchema = {
 	rentedbooks: []
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,6 +41,8 @@ export class UserService {
 	returningUser:loginSchema;
 
 	isLoggedIn: boolean = false;//to be used in userprofile
+	isadmin:boolean =false
+	userID:string =""
 	userEmail: string;
 
 	constructor(private http: HttpClient, private _router: Router) {
@@ -52,7 +55,7 @@ export class UserService {
 	}
 
 	login(user:loginSchema){
-		return this.http.post<{token:string, info:{}}>(this.BASE_URL+'/login', user)
+		return this.http.post<{token:string, info:{},userid:string,isadmin:boolean}>(this.BASE_URL+'/login', user)
 	}
 
 	//retrive user profile data

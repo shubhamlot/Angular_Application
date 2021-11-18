@@ -241,8 +241,9 @@ router.post(
 
 							const body = { email: user.email };
 							const token = jwt.sign(body, 'TOP_SECRET');
-
-							return res.json({token, info});
+                            userid = user._id
+                            isadmin = user.isadmin
+							return res.json({token, info, userid, isadmin});
 						}
 					)
 				} catch(e) {

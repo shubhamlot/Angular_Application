@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { Books } from './Books';
 import {catchError, tap, map} from 'rxjs/operators';
+import { UserService } from './user.service';
 
 
 
@@ -14,11 +15,11 @@ export class BooksService {
 
   public cartlist:Array<any> = [];
   public wishlist:Array<any> = [];
-
+  public userid:string = ""
   selectedBooks:Books
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private userservice:UserService) {
     this.selectedBooks=new Books("","","","",0,0)
-    
+    this.userid = userservice.userID
   }
 
 getBooks() {
@@ -32,7 +33,7 @@ getBooks() {
   }
 
 postBooks(book:Books) {
-    console.log(book)
+    // console.log(book)
     return this.http.post(this.BASE_URL+'/addBooks',book)
 }
 
@@ -51,12 +52,15 @@ getBookDetails(book_id:string){
 }
 
 rentBooks(book:Books){
-  var userid = "6191dec2ab87ca5adeba6202" //temporary
-  return this.http.put(this.BASE_URL+"/"+userid+'/rentBooks/'+book._id,book)
+  console.log()
+
+  // var userid = "6191dec2ab87ca5adeba6202" //temporary
+  return this.http.put(this.BASE_URL+"/"+this.userservice.userID+'/rentBooks/'+book._id,book)
 }
 
 returnBooks(book:Books){
-  var userid = "6191dec2ab87ca5adeba6202"//temporary
-  return this.http.put(this.BASE_URL+"/"+userid+'/returnBooks/'+book._id,book)
+  // var userid = this.//temporary
+  // console.log(this.userid)
+  return this.http.put(this.BASE_URL+"/"+this.userservice.userID+'/returnBooks/'+book._id,book)
 }
 }

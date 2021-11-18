@@ -34,13 +34,13 @@ export class UserprofileComponent implements OnInit {
   getUserDetails(){
     this.userService.userProfileInformation().subscribe(
       result => {
-        console.log(result);
+       
         if(this.userService.isLoggedIn){
           this.user = result;
           this.isLoggedIn = this.userService.isLoggedIn;
-        }else{
-          // window.alert('Please Login');
+          console.log(this.user);
         }
+        
       },
 
       err => {

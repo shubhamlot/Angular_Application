@@ -6,6 +6,7 @@ import { Router,Route } from '@angular/router'
 import { FormBuilder, Validators } from "@angular/forms";
 
 import { LowerCasePipe } from '@angular/common';
+import { UserService } from 'src/app/user.service';
 @Component({
   selector: 'app-home-books',
   templateUrl: './home-books.component.html',
@@ -20,10 +21,11 @@ export class HomeBooksComponent implements OnInit {
   isadmin = false;
   isValidated = false;
   categories: any = ['Mystery','Fiction', 'Educational']
-  isAdmin = true;
+ 
   
-  constructor(private bookData:BooksService,private router:Router) { 
-   
+  constructor(private bookData:BooksService,private router:Router,private userservice:UserService) { 
+   this.isadmin = this.userservice.isadmin
+   console.log(this.isadmin)
   }
 
   ngOnInit(): void {
