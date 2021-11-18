@@ -15,7 +15,7 @@ var userLogSchema= new schema({
     },
     book:{
         type:String,
-        required:true
+        // required:true
     },
 
     dateAndtime:{
