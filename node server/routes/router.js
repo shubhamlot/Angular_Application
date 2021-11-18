@@ -88,11 +88,10 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
     var copies = req.body.copies
     var rented = req.body.rented
     var userid = req.params.userid
-
     // if(copies>0){
         copies-=1
         rented+=1
-        console.log("hi")
+      
         await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} }).then(data=>{
             var ulog=new userlog({userid:userid,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
             console.log(ulog)

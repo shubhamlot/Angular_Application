@@ -55,9 +55,10 @@ getBookDetails(book_id:string){
 }
 
 rentBooks(book:Books){
-  console.log()
+
 
   // var userid = "6191dec2ab87ca5adeba6202" //temporary
+  console.log("service")
   return this.http.put(this.BASE_URL+"/"+this.userservice.userID+'/rentBooks/'+book._id,book)
 }
 
