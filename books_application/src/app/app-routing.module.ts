@@ -11,6 +11,7 @@ import { UpdatebookComponent } from './component/updatebook/updatebook.component
 import { UserlogComponent } from './component/userlog/userlog.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -35,15 +36,18 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'wishlist',
-    component: WishlistComponent
+    component: WishlistComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-profile',
-    component: UserprofileComponent
+    component: UserprofileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'userlog',

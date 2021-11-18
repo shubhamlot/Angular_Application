@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  isadmin:Boolean
-  constructor() { }
+  isadmin:Boolean = false
+  constructor(private userservice:UserService) { 
+    this.isadmin = userservice.isadmin
+  }
 
   ngOnInit(): void {
     this.isadmin=true

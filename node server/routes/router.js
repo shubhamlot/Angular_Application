@@ -9,6 +9,8 @@ const {body, validationResult} = require('express-validator')
 const bcrypt = require("bcrypt")
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+// const user = require('../model/Users')
+// const user = require('../model/Users')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -212,9 +214,10 @@ router.post(
 							if(error) return next(error)
 
 							const body = { email: user.email };
-							const token = jwt.sign({user: body}, 'TOP_SECRET');
-
-							return res.json({token, info});
+							const token = jwt.sign(body, 'TOP_SECRET');
+                            userid = user._id
+                            isadmin = user.isadmin
+							return res.json({token, info, userid, isadmin});
 						}
 					)
 				} catch(e) {
@@ -247,10 +250,10 @@ router.post("/login", async (req, res) => {
 })
 */
 
-/*
+
 //returns user information
-router.get("/user-information/:email", async (req, res) => {
-    let email = req.params.email;
+router.get("/user-information", verifyToken, async (req, res) => {
+    let email = req.body.email;
 
     let result = await user.findOne({email: email});
 	
@@ -265,7 +268,6 @@ router.get("/user-information/:email", async (req, res) => {
 		res.send(userInfo);
 	}
 });
-*/
 
 
 router.get("/userlog",async(req,res)=>{
@@ -279,4 +281,75 @@ router.get("/userlog",async(req,res)=>{
         }
     })
 })
+
+
+//for change in password 
+router.post('/change-password', verifyToken,async (req, res)=>{ 
+    let email = req.body.email
+    let password = req.body.current_password
+    let new_password = req.body.new_password
+    console.log(password, email, new_password)
+
+    try {
+        const User = await user.findOne({ email:email });
+
+        if (!User) {
+            return done(null, false, { message: 'User not found' });
+        }
+
+        // const validate = await user.isValidPassword(password);
+
+	    // if (!validate) {
+		// 	res.send('Enter currect password!!!')
+		// }
+
+       try{
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(new_password,salt)
+        const oldPassword = await bcrypt.hash(password,salt)
+        new_password = hashedPassword
+       }catch{
+            console.log('Not able to encrypt');
+       }
+
+        user.findOneAndUpdate({email: email}, {password: new_password}, (err, result)=>{
+            if(err){
+                console.log(err)
+                return res.send('not able to update')
+            }else{
+                return res.status(200).send('Password As been changed!!!')
+            }
+        })
+        
+
+    } catch (error) {
+        return error;
+    }
+
+})
+
+//verify token middleware
+function verifyToken(req, res, next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unauthorized request')
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if(token === 'null'){
+        return res.status(401).send('Unauthorized request')
+    }
+    let payload = jwt.verify(token, 'TOP_SECRET')
+    if(!payload){
+        return res.status(401).send('Unauthorized request')
+    }
+    req.body.email = payload.email;
+    // console.log(payload.email)
+    // console.log(req.email)
+    // console.log(req.body.email);
+    next()
+}
+
+
+
+
+
 module.exports = router
