@@ -43,9 +43,9 @@
 
             <div class="row"> 
               <div class="row align-items-center">
-                <div class="col"> <h4> Item </h4> </div>
-                <div class="col"> <h4> Genre</h4> </div>
-                <div class="col"> <h4> Type</h4> </div>
+                <div class="col"> <h4> Book Name </h4> </div>
+                <div class="col"> <h4> Author</h4> </div>
+              
                 <div class="col"></div>
               </div>
               <hr>
@@ -59,11 +59,13 @@
                   </div>
                   
                   <div class="col"> {{book.category}} </div>
-                  <div class="col"> Hardbound </div>
+                  
 
-                  <div class="col"> 
+                  <div class="col" > 
                     <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
                   </div>
+                  
+                  
               </div>
               <hr>
             </div>
@@ -87,7 +89,15 @@
                   responsible. </label>
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-            </div> <button class="btn align-self-end" (click)="checkOut()">RENT BOOK</button>
+            </div> 
+            <div *ngIf="books.length == 0 else Allow">
+            <button   class="btn align-self-end"  disabled>RENT BOOK</button>
+            </div>
+            <ng-template #Allow>
+              <div>
+              <button class="btn align-self-end" (click)="checkOut()">RENT BOOK</button>
+              </div>
+            </ng-template>
         </div>
     </div>
 </div>
