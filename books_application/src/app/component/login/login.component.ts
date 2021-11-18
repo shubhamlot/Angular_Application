@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
 
 		this.userService.login(this.userService.returningUser).subscribe(
 			data => {
-				if(data === true) {
+				
+				if(data) {
 
 					this.userService.isLoggedIn = true; //set data in user service
 					this.userService.userEmail = this.email //set email in user email in user service
