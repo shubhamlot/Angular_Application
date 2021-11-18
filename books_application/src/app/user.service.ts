@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import {User} from './User'
 import { Router } from '@angular/router';
 
+type changepwd = {
+	current_password: string,
+	new_password: string,
+	confirm_password: string
+}
+
 type signupSchema = {
 	firstname: string;
 	lastname: string;
@@ -68,6 +74,11 @@ export class UserService {
 	logOut(){
 		localStorage.removeItem('token')
 		this._router.navigate(['/login'])
+	}
+
+	//for changing password
+	changePassword(changepwd: changepwd){
+		return this.http.post<any>(this.BASE_URL+'/change-password', changepwd)
 	}
 
 }

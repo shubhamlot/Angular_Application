@@ -9,6 +9,8 @@ const {body, validationResult} = require('express-validator')
 const bcrypt = require("bcrypt")
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+// const user = require('../model/Users')
+// const user = require('../model/Users')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -304,6 +306,51 @@ router.get("/userlog",async(req,res)=>{
     })
 })
 
+
+//for change in password 
+router.post('/change-password', verifyToken,async (req, res)=>{ 
+    let email = req.body.email
+    let password = req.body.current_password
+    let new_password = req.body.new_password
+    console.log(password, email, new_password)
+
+    try {
+        const User = await user.findOne({ email:email });
+
+        if (!User) {
+            return done(null, false, { message: 'User not found' });
+        }
+
+        // const validate = await user.isValidPassword(password);
+
+	    // if (!validate) {
+		// 	res.send('Enter currect password!!!')
+		// }
+
+       try{
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(new_password,salt)
+        const oldPassword = await bcrypt.hash(password,salt)
+        new_password = hashedPassword
+       }catch{
+            console.log('Not able to encrypt');
+       }
+
+        user.findOneAndUpdate({email: email}, {password: new_password}, (err, result)=>{
+            if(err){
+                console.log(err)
+                return res.send('not able to update')
+            }else{
+                return res.status(200).send('Password As been changed!!!')
+            }
+        })
+        
+
+    } catch (error) {
+        return error;
+    }
+
+})
 
 //verify token middleware
 function verifyToken(req, res, next){
