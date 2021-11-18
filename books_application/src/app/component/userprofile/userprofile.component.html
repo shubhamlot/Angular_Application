@@ -1,5 +1,7 @@
 <!-- <p>userprofile works!</p>
 <div *ngIf="isLogedIn">
+<p>userprofile works!</p>
+<div *ngIf="isLoggedIn">
     <h1>{{ user.email }}</h1>
     <h2>{{ user.firstname }} {{ user.lastname }}</h2>
 </div>
@@ -30,3 +32,4 @@
 </div>
    
 
+<h2 *ngIf="!isLoggedIn" style="color: red;">Please Login... <a routerLink="/login">here</a></h2>

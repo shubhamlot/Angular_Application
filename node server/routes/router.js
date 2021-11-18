@@ -6,6 +6,9 @@ const userlog = require('../model/Userlog')
 const user = require("../model/Users")
 const {body, validationResult} = require('express-validator')
 
+const bcrypt = require("bcrypt")
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -206,84 +209,89 @@ router.delete("/deleteBooks/:id",(req,res)=>{
     })
 })
 
-router.post("/signup", 
-    body('firstname').isAlpha().isLength({min : 1}),
-    // body('lastname').isAlpha().isLength({min : 0}),
-    body('email').isEmail().normalizeEmail(), 
-    body('password').isLength({min : 5}).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
-    async (req, res) => {
-        const errs = validationResult(req)
-        console.log(errs.array())
-        if(!errs.isEmpty()){
-            return res.status(400).json({
-                success: false,
-                errors: errs.array()
-            })
-        }
-        res.status(200).json({
-            success: true,
-            message: 'Sign Up Validated'
-        })
-
-        var userObj = new user();
-        userObj.firstname = req.body.firstname;
-        userObj.lastname = req.body.lastname;
-        userObj.email = req.body.email;
-        userObj.password = req.body.password;
-        console.log(userObj)
-        var duplicateUser = await user.findOne({ email:userObj.email })
-
-        if(duplicateUser) res.send(false);
-        else {
-            userObj.save((err, result) => {
-                if(err) res.send(false);
-                else res.send(true);
-            })
-        }
+router.post(
+    '/signup',
+    passport.authenticate('signup', { session: false }),
+    async (req, res, next) => {
+      res.json({
+        message: 'Signup successful',
+        user: req.user
+      });
     }
+  );
+  
+
+router.post(
+	'/login',
+	async (req, res, next) => {
+		passport.authenticate(
+			'login',
+			async (err, user, info) => {
+				try {
+					if(err || !user) {
+						return next('error')
+					}
+					req.login(
+						user,
+						{session: false},
+						async (error) => {
+							if(error) return next(error)
+
+							const body = { email: user.email };
+							const token = jwt.sign({user: body}, 'TOP_SECRET');
+
+							return res.json({token, info});
+						}
+					)
+				} catch(e) {
+					return next(e);
+				}
+
+			}
+		)(req, res, next);
+	}
 )
 
-router.post("/login", 
-    body('email').isEmail().normalizeEmail(), 
-    body('password').isLength({min : 5}).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
-    async (req, res) => {
-        const errs = validationResult(req)
-        if(!errs.isEmpty()){
-            return res.status(400).json({
-                success: false,
-                errors: errs.array()
-            })
+/*
+router.post("/login", async (req, res) => {
+	var userEmail = req.body.email;
+	var DbPassword = req.body.password;
+    
+	var result = await user.findOne({email: userEmail});
+    passwordByUser=result.password
+    bcrypt.compare(DbPassword,passwordByUser,function(error,ismatch){
+        if(error){
+            throw error
         }
-        res.status(200).json({
-            success: true,
-            message: 'Login Validated'
-        })
-
-        var userEmail = req.body.email;
-        var userPassword = req.body.password;
-
-        var result = await user.findOne({email: userEmail});
-
-        if(result === null) res.send(false);
-        else {
-            var logInSuccess = result.password === userPassword;
-
-            res.send(logInSuccess);
+        else if(!ismatch){
+            res.send(false)
         }
-    }
-)
+        else{
+            res.send(true)
+        }
+    })
+})
+*/
 
+/*
 //returns user information
 router.get("/user-information/:email", async (req, res) => {
     let email = req.params.email;
 
     let result = await user.findOne({email: email});
-    console.log(result);
+	
     if(result === null) res.send(false);
 	else {
-		res.send(result);
+		const userInfo = {};
+		userInfo.firstname = result.firstname;
+		userInfo.lastname = result.lastname;
+		userInfo.email = result.email;
+		userInfo.isadmin = result.isadmin;
+		userInfo.rentedbooks = result.rentedbooks;
+		res.send(userInfo);
 	}
 });
+*/
 
 
 router.get("/userlog",async(req,res)=>{
