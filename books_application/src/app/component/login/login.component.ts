@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
 			data => {
 				
 				if(data) {
+					console.log(data.token);
+				 	localStorage.setItem('token', data.token)
 
 					this.userService.isLoggedIn = true; //set data in user service
 					this.userService.userEmail = this.email //set email in user email in user service
