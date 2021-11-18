@@ -6,6 +6,7 @@ import {catchError, tap, map} from 'rxjs/operators';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,8 @@ getBooks() {
 
   }
 
+
+
   getBooksbyCat(cat: string) {
     return this.http.get(this.BASE_URL +'/getBooksbyCat/'+cat)
   }
@@ -41,6 +44,8 @@ deleteBook(book:Books){
 }
 
 updateBook(book:Books){
+  book.copies=1
+  console.log(book)
   return this.http.put(this.BASE_URL+'/editBooks/'+book._id,book)
 }
 
@@ -49,10 +54,12 @@ getBookDetails(book_id:string){
 }
 
 rentBooks(book:Books){
-  return this.http.put(this.BASE_URL+'/rentBooks/'+book._id,book)
+  var userid = "6191dec2ab87ca5adeba6202" //temporary
+  return this.http.put(this.BASE_URL+"/"+userid+'/rentBooks/'+book._id,book)
 }
 
 returnBooks(book:Books){
-  return this.http.put(this.BASE_URL+'/returnBooks/'+book._id,book)
+  var userid = "6191dec2ab87ca5adeba6202"//temporary
+  return this.http.put(this.BASE_URL+"/"+userid+'/returnBooks/'+book._id,book)
 }
 }

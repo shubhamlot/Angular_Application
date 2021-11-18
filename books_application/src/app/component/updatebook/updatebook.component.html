@@ -1,22 +1,45 @@
-<h1>Update Books</h1>
-<form #bookForm="ngForm" (ngSubmit)="onSubmit()" >
-    <!-- <input type="hidden" name="id" [(ngModel)]="bookservice.selectedBooks._id"/> -->
-    <!-- {{ bookForm.value | json }} -->
+
+<div class="container">
+    <br/>
+<h1>Update Book</h1>
+<br/>
+
+<div class="container-md btn-light">
+
+    <div class="row">
+      <div class="col-sm">
+        <h4>Number of copies:       {{bookModel.copies}}</h4>
+      </div>
+    
+    </div>
+  </div>
+  <br>
+
+    <form #bookForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+        <input type="hidden" name="id" [(ngModel)]="bookservice.selectedBooks._id"/> 
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" id="title" name="title" [(ngModel)]="bookModel.title" >
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input class="form-control" type="text" id="author" name="author" [(ngModel)]="bookModel.author">
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input class="form-control" type="text" id="category" name="category" [(ngModel)]="bookModel.category">
+        </div>
+        
+        <!-- <input type="hidden" id="copies" name="copies" value="1"/> -->
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+
+
   
-    <label for="title">title</label><br/>
-    <input type="text" id="title" name="title" [(ngModel)]="bookModel.title"/><br/>
 
-    <label for="author">author</label><br/>
-    <input type="text" id="author" name="author" [(ngModel)]="bookModel.author" /><br/>
-
-    <label for="category">category</label><br/>
-    <input type="text" id="category" name="category" [(ngModel)]="bookModel.category"/><br/>
-
-    <label for="copies">copies</label><br/>
-    <input type="number" id="copies" name="copies" [(ngModel)]="bookModel.copies"/><br/>
-
-    <button type="submit">Update</button>
-    <!-- <button type="button" (click)="resetForm()">reset</button> -->
-
+        
+      
 
 </form>
+</div>

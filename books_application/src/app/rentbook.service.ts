@@ -1,3 +1,4 @@
+import { User } from './User';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Books } from './Books';
@@ -8,7 +9,8 @@ import { Books } from './Books';
 export class RentbookService {
 
   BASE_URL='http://localhost:8000/routes'
-  public booklist:Array<any>
+  public userlist:Array<User>
+  //userlist.rentedbook:Books.id
   // data:Array<Books>
   selectedBooks:Books
   //book: any;
@@ -28,10 +30,15 @@ export class RentbookService {
    return this.http.put(this.BASE_URL+'/returnBooks/'+book._id,book)
  }
 
- displayrentedbooks(){
+ displayrentedbooks(user:User){
    //1.display book from user collection
-   return this.http.get(this.BASE_URL+'/getRentedBooks')
+   return this.http.get(this.BASE_URL+'/rentedbooks')
+   //user._id to be passed
   
+ }
+
+ showuserlog(){
+   return this.http.get(this.BASE_URL+'/userlog')
  }
 
 }

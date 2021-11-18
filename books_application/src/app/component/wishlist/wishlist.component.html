@@ -1,21 +1,40 @@
-<h1>Cart </h1>
 
-<table>
-    <tr>
-      
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
+<br>
+<div class="container-md">
+  <h1 class="display-4">WishList </h1>
+<br>
+  <div class="row">
+   
+      <!-- <div class="table-wrap"> -->
+        <table class="table table-borderless">
+          <br>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="alert" role="alert" *ngFor="let book of books" >
+              <td class=" align-items-center">
+                
+                  <h5> {{book.title}} </h5>
+                
+              </td>
 
-    </tr>
-    <tr *ngFor="let book of books" >
-      <td>{{book.title}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.category}}</td>
-
-      <td><button class="details" (click) = "removeItem(book)">Remove from Wishlist </button></td>
-
-    </tr>
-    <br>
-    
-  </table>
+              <td><h5>{{book.author}}</h5></td>
+              <td><h5>{{book.category}}</h5></td>  
+              
+              <td> 
+                <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
+              </td>
+            </tr>
+          </tbody>
+            
+          </table>
+      <!-- </div> -->
+    <!-- </div> -->
+  </div>
+</div>

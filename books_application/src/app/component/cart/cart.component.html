@@ -1,6 +1,6 @@
-<h1>Cart </h1>
+<!-- <h1>Cart </h1>
 
-<table>
+<table class="table">
     <tr>
       
       <th>Title</th>
@@ -24,6 +24,80 @@
 
     </tr>
     <br>
-    <button class="details" (click)="checkOut()"> Checkout </button>
+    <button class="details" (click)="checkOut()" > Checkout </button>
     
-  </table>
+  </table> -->
+
+  <div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-4">Cart</h1>
+                    </div>
+                    <div class="col align-self-center text-end display-6" *ngIf="books">{{books.length}} items</div>
+                    <hr>
+                </div>
+            </div> <!-- title ends-->
+
+            <div class="row"> 
+              <div class="row align-items-center">
+                <div class="col"> <h4> Book Name </h4> </div>
+                <div class="col"> <h4> Author</h4> </div>
+              
+                <div class="col"></div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="row" *ngFor="let book of books">
+              <div class="row main align-items-center">
+                  <div class="col">
+                    <div class="row"> {{book.title}}</div>
+                    <div class="row text-muted">{{book.author}}</div>
+                  </div>
+                  
+                  <div class="col"> {{book.category}} </div>
+                  
+
+                  <div class="col" > 
+                    <button type="button" class="btn-close btn-close-black" aria-label="Close" (click)="removeItem(book)"></button>
+                  </div>
+                  
+                  
+              </div>
+              <hr>
+            </div>
+
+            
+
+            <div class="back-to-shop"><a routerLink="/">&leftarrow;</a><span class="text-muted display">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h2 class="display-4">Summary</h2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0; font-size: medium;" *ngIf="books">ITEMS : {{books.length}}</div>
+            </div>
+            <form>
+                
+                
+                <label for="tandc">By Renting this Books I accept that if there is any damage to book I will be held 
+                  responsible. </label>
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+            </div> 
+            <div *ngIf="books.length == 0 else Allow">
+            <button   class="btn align-self-end"  disabled>RENT BOOK</button>
+            </div>
+            <ng-template #Allow>
+              <div>
+              <button class="btn align-self-end" (click)="checkOut()">RENT BOOK</button>
+              </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

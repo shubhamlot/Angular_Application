@@ -1,23 +1,129 @@
-<h1>Sign Up</h1>
+<!-- <h1>Sign Up</h1>
 
 <div class="container">
 <form #signupForm="ngForm" (ngSubmit)="onSubmit()" >
 
     <label for="firstname">First Name</label>
-    <input type="text" id="firstname" name="firstname" [(ngModel)]="this.userService.newUser.firstname"/><br/>
+    <input type="text" 
+    id="firstname" 
+    name="firstname" 
+    class="form-control"
+    #firstname="ngModel"
+    [(ngModel)]="this.userService.newUser.firstname"
+    required minlength="1" pattern="^[a-zA-Z]+$" />
+    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert">
+        <div *ngIf="firstname.errors?.['required']">
+            First Name is required
+        </div>
+        <div *ngIf="firstname.errors?.['pattern']">
+            Invalid Name 
+        </div>
+    </div>
+    <br/>
 
     <label for="lastname">Last Name</label>
-    <input type="text" id="lastname" name="lastname" [(ngModel)]="this.userService.newUser.lastname"/><br/>
+    <input type="text" 
+    id="lastname" 
+    name="lastname" 
+    class="form-control"
+    #lastname="ngModel"
+    [(ngModel)]="this.userService.newUser.lastname"
+    pattern="^[a-zA-Z]+$" />
+    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert">
+        <div *ngIf="lastname.invalid && lastname.errors?.['pattern']">
+            Invalid Name 
+        </div>
+    </div>
+    <br/>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" [(ngModel)]="this.userService.newUser.email"/><br/>
+    <input type="email" 
+    id="email" name="email" 
+    class="form-control"
+    #email="ngModel"
+    [(ngModel)]="this.userService.newUser.email"
+    required pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+        <div *ngIf="email.errors?.['required']">
+            Email is required
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+            Invalid Email 
+        </div>
+    </div>
+    <br/>
 
     <label for="password">Password</label>
-    <input type="password" id="password" name="password" [(ngModel)]="this.userService.newUser.password"/><br/>
+    <input type="password" 
+    id="password" 
+    name="password" 
+    class="form-control"
+    #password="ngModel"
+    [(ngModel)]="this.userService.newUser.password"
+    required minlength="5" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{5,}$' />
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+        <div *ngIf="password.errors?.['required']">
+            Password is required
+        </div>
+        <div *ngIf="password.errors?.['minlength']">
+            Password must be atleast 5 characters long
+        </div>
+        <div *ngIf="password.errors?.['pattern']">
+            Password must contain lower case, upper case, a number and a special character(@$!%*?&)
+        </div>
+    </div>
+    <br/>
 	
     <button type="submit" >Submit</button>
     <button type="button" (click)="resetForm()">Reset</button>
 
 </form>
 
-</div>
+</div> -->
+
+<body class="text-center">
+    <main class="form-signin">
+        <!-- <div class="container"> -->
+            <!-- <form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+            
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
+                
+                <button type="submit" >Submit</button>
+                <button type="button" (click)="resetForm()">Reset</button>
+            
+            </form> -->
+            <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+                <h1 class="h3 mb-3 fw-normal">Register</h1>
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="firstname" id="floatingInput" placeholder="First Name" [(ngModel)]="this.userService.newUser.firstname">
+                    <label for="floatingInput">First Name</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="lastname" id="floatingInput" placeholder="Last Name" [(ngModel)]="this.userService.newUser.lastname">
+                    <label for="floatingInput">Last Name</label>
+                  </div>
+            
+                <div class="form-floating">
+                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.newUser.email">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.newUser.password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                    <button class="btn btn-primary float-start" type="submit">Register</button>
+                    <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+
+              </form>
+              <br/>
+              <br/>
+               <small><a href="/login">Already Registered? Login</a></small>
+            
+            <!-- </div> -->
+            
+        </main>
+</body>

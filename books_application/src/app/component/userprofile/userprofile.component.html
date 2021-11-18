@@ -1,0 +1,35 @@
+<!-- <p>userprofile works!</p>
+<div *ngIf="isLogedIn">
+<p>userprofile works!</p>
+<div *ngIf="isLoggedIn">
+    <h1>{{ user.email }}</h1>
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+</div>
+
+<h2 *ngIf="!isLogedIn" style="color: red;">Please Login... <a routerLink="/login">here</a></h2> -->
+<br/>
+<div class="container-md">
+    
+        <div class="row gx-5">
+          <div class="col">
+           <div class="p-4 border bg-light">
+               <h3>{{user.firstname}}</h3>
+               <small>{{user.email}}</small>
+            </div>
+          </div>
+          
+        </div>
+<br/>
+
+        <div class="row gx-5">
+            <div class="col">
+                <div class="p-4 border bg-light">
+                    <h5>Rented Books</h5>
+                </div>
+              </div>
+           
+            </div>
+</div>
+   
+
+<h2 *ngIf="!isLoggedIn" style="color: red;">Please Login... <a routerLink="/login">here</a></h2>

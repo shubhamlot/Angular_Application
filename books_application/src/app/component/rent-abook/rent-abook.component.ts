@@ -1,5 +1,5 @@
+import { Books } from './../../Books';
 import { RentbookService } from './../../rentbook.service';
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,22 +9,41 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./rent-abook.component.css']
 })
 export class RentAbookComponent implements OnInit {
-
+  books:any;
+  user:any;
   constructor(public rentservice:RentbookService,private route:ActivatedRoute,private router:Router) { }
   
   ngOnInit(): void {
+    this.loadLibrary();
   }
 
-  onRent(){
+  loadLibrary() {
+    this.rentservice.displayrentedbooks(this.user).subscribe(data=>{
+      this.books=data
+    }, 
+    error=>console.error("error"+error))
+  } 
 
+  rentBook(){
+    if(this.books.copies==0){
+    this.rentservice.rentBook(this.books).subscribe(data=>{
+      this.rentservice.userlist.push(this.books.id);
+      alert(this.books.title+' is rented!')
+    },
+    error => console.error("error"+error)
+
+    )
+  }
   }
 
-  onReturn(){
-
-  }
-
-  onDisplay(){
-
+  returnBook(){
+    this.rentservice.returnBook(this.books).subscribe(data=>{
+      this.books.rented =0;
+      this.books.copies=1;
+    },
+    error=>console.error("error"+error)
+    )
+    this.loadLibrary();
   }
   
 }

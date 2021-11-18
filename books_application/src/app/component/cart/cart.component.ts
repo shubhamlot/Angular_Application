@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Books } from 'src/app/Books';
 import { BooksService } from 'src/app/books.service';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-cart',
@@ -12,14 +13,15 @@ export class CartComponent implements OnInit {
 
   books: any;
 
-  constructor(public bookData:BooksService) { }
+  constructor(public bookData:BooksService, private sessionSt:SessionStorageService) { }
 
   ngOnInit(): void {
     this.loadCart();
   }
 
   loadCart() {
-    this.books = localStorage.getItem('cart');
+    this.books = this.sessionSt.get('cart');
+    //this.books = localStorage.getItem('cart');
     this.books = JSON.parse(this.books);
   }
 
@@ -32,7 +34,7 @@ export class CartComponent implements OnInit {
     }
 
     // update local storage
-    localStorage.setItem('cart', JSON.stringify(this.bookData.cartlist));
+    this.sessionSt.set('cart', JSON.stringify(this.bookData.cartlist));
 
     // update view
     this.loadCart();
@@ -40,12 +42,16 @@ export class CartComponent implements OnInit {
 
   checkOut() {
     for(let i =0; i < this.books.length; i++) {
-      this.books[i].copies -= 1;
-      this.books[i].rented += 1;
+      this.bookData.rentBooks(this.books[i]).subscribe(
+        data=>{
+          console.log(data)
+        },
+        error=>console.error("error"+error)
+      )
     }
 
     // after checkout, cart should be empty
-    localStorage.removeItem('cart');
+    this.sessionSt.remove('cart');
     this.loadCart();
 
   }

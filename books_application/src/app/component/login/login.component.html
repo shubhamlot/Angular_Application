@@ -1,17 +1,103 @@
-<h1>Login Form</h1>
+<!-- <div class="container">
 
-<div class="container">
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+    <input type="email" 
+    id="email" 
+    name="email" 
+    class="form-control"
+    #email="ngModel"
+    [(ngModel)]="this.userService.returningUser.email"
+    required pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+        <div *ngIf="email.errors?.['required']">
+            Email is required
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+            Invalid Email 
+        </div>
+    </div>
+    <br/>
 
     <label for="password">Password</label>
-    <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
+    <input type="password" 
+    id="password" name="password" 
+    class="form-control"
+    #password="ngModel"
+    [(ngModel)]="this.userService.returningUser.password"
+    required />
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+       <div *ngIf="password.errors?.['required']">
+            Password is required
+        </div>
+        <div *ngIf="password.errors?.['minlength']">
+            Password must be atleast 5 characters long
+        </div>
+        <div *ngIf="password.errors?.['pattern']">
+            Password must contain lower case, upper case, a number and a special character(@$!%*?&)
+        </div>
+    </div>
+    <br/>
 	
     <button type="submit" >Submit</button>
     <button type="button" (click)="resetForm()">Reset</button>
+    <div class="form-floating">
+      <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.returningUser.email">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.returningUser.password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Sign in</button>
+        <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+    </div>
 
-</form>
+  </form>
 
-</div>
+</div> -->
+
+
+
+<body class="text-center">
+    <main class="form-signin">
+        <!-- <div class="container"> -->
+            <!-- <form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="this.userService.returningUser.email"/><br/>
+            
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="this.userService.returningUser.password"/><br/>
+                
+                <button type="submit" >Submit</button>
+                <button type="button" (click)="resetForm()">Reset</button>
+            
+            </form> -->
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <h1 class="h3 mb-3 fw-normal">Login</h1>
+            
+                <div class="form-floating">
+                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.returningUser.email">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.returningUser.password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                    <button class="btn btn-primary float-start" type="submit">Sign in</button>
+                    <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
+
+                    
+              </form>
+              <br/>
+              <br/>
+               <small><a href="/signup">New User? Register</a> </small>
+            
+            <!-- </div> -->
+            
+        </main>
+</body>

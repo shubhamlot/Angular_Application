@@ -9,6 +9,7 @@ import { UserService } from 'src/app/user.service';
 	styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
+	email: string;
 	constructor(public userService: UserService, private router:Router) {
 
 	}
@@ -25,10 +26,22 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit(): void {
+		this.email = this.userService.returningUser.email; //catch user email to use in user profile
+
 		this.userService.login(this.userService.returningUser).subscribe(
 			data => {
-				if(data === true) this.router.navigate(['/']) // redirect to the appropriate page
-				else this.router.navigate(['/login'])
+				
+				if(data) {
+
+					this.userService.isLoggedIn = true; //set data in user service
+					this.userService.userEmail = this.email //set email in user email in user service
+
+					this.router.navigate(['/'])
+				} // redirect to the appropriate page
+				else {
+					this.userService.isLoggedIn = false
+					this.router.navigate(['/login'])
+				}
 			},
 			error => {
 				console.log(error)

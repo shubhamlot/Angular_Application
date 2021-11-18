@@ -1,0 +1,4 @@
+Added a backend api for user authentication
+
+- Added /signup and /login post routes
+- Added password field to the Users schema
