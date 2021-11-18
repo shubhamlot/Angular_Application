@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
 
   books: any;
 
-  constructor(public bookData:BooksService, private sessionSt:SessionStorageService) { }
+  constructor(public bookData:BooksService, private sessionSt:SessionStorageService, private router:Router) { }
 
   ngOnInit(): void {
     this.loadCart();
@@ -38,6 +38,10 @@ export class CartComponent implements OnInit {
 
     // update view
     this.loadCart();
+  }
+
+  showBookDetails(book: Books) {
+    this.router.navigate(["details/" + book._id])
   }
 
   checkOut() {
