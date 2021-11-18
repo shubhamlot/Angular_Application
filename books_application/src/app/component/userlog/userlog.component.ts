@@ -19,7 +19,8 @@ export class UserlogComponent implements OnInit {
   showlog(){
     this.rentservice.showuserlog().subscribe(data=>{
       this.userlogs=data
-      console.log(data)
+      this.userlogs.reverse()
+      // console.log(data)
     },
     error=>console.error("error"+error)
     )
