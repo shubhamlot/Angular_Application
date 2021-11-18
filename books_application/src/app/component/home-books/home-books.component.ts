@@ -5,13 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router,Route } from '@angular/router'
 import { FormBuilder, Validators } from "@angular/forms";
 
+import { LowerCasePipe } from '@angular/common';
 @Component({
   selector: 'app-home-books',
   templateUrl: './home-books.component.html',
   styleUrls: ['./home-books.component.css']
 })
 export class HomeBooksComponent implements OnInit {
-
+  
   flag:Boolean
   book_id:any
   books:any
@@ -19,6 +20,8 @@ export class HomeBooksComponent implements OnInit {
   isadmin = false;
   isValidated = false;
   categories: any = ['Mystery','Fiction', 'Educational']
+  isAdmin = true;
+  
   constructor(private bookData:BooksService,private router:Router) { 
    
   }
@@ -75,3 +78,8 @@ export class HomeBooksComponent implements OnInit {
 
 }
 
+
+function toLowerCase(cat: string): string {
+  throw new Error('Function not implemented.');
+}
+//by shrinath

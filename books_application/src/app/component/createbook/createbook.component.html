@@ -6,13 +6,16 @@
     <!-- {{ bookForm.value | json }} -->
   
     <label for="title">title</label>
-    <input type="text" id="title" name="title" [(ngModel)]="bookservice.selectedBooks.title"/><br/>
+    <input type="text" id="title" name="title"  oninput="this.value=this.value.toUpperCase()"
+    [(ngModel)]="bookservice.selectedBooks.title"/><br/>
 
     <label for="author">author</label>
-    <input type="text" id="author" name="author" [(ngModel)]="bookservice.selectedBooks.author" /><br/>
+    <input type="text" id="author" name="author" oninput="this.value=this.value.toUpperCase()"
+    [(ngModel)]="bookservice.selectedBooks.author" /><br/>
 
     <label for="category">category</label>
-    <input type="text" id="category" name="category" [(ngModel)]="bookservice.selectedBooks.category"/><br/>
+    <input type="text" id="category" name="category" oninput="this.value=this.value.toUpperCase()"
+    [(ngModel)]="bookservice.selectedBooks.category"/><br/>
 
     <label for="copies">Count</label>
     <input type="number" id="copies" name="copies" [(ngModel)]="bookservice.selectedBooks.copies"/><br/>
@@ -24,3 +27,4 @@
 </form>
 
 </div>
+
