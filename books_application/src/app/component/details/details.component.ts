@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit {
               private sessionSt : SessionStorageService) { }
 
   ngOnInit(): void {
-    this.isadmin=true;
+    this.isadmin=false;
     this.id = this.route.snapshot.paramMap.get('id')
     this.details(this.id)
     // Why call this function here?

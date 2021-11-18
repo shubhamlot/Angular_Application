@@ -41,7 +41,7 @@
                 </div>
             </div> <!-- title ends-->
 
-            <div class="row"> 
+            <!-- <div class="row"> 
               <div class="row align-items-center">
                 <div class="col"> <h4> Book Name </h4> </div>
                 <div class="col"> <h4> Genre</h4> </div>
@@ -49,10 +49,15 @@
                 <div class="col"></div>
               </div>
               <hr>
-            </div>
+            </div> -->
 
             <div class="row" *ngFor="let book of books">
               <div class="row main align-items-center">
+
+                <div class="col">
+
+                  <img class = "img-thumbnail" src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-L.jpg">
+                </div>
                   <div class="col">
                     <div class="row"> {{book.title}}</div>
                     <div class="row text-muted">{{book.author}}</div>
