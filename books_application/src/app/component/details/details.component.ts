@@ -23,6 +23,7 @@ export class DetailsComponent implements OnInit {
               private sessionSt : SessionStorageService) { }
 
   ngOnInit(): void {
+    this.isadmin=false;
     this.id = this.route.snapshot.paramMap.get('id')
     this.details(this.id)
     // Why call this function here?
@@ -71,7 +72,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
-      this.isadmin=false
+      
     
 
     })
