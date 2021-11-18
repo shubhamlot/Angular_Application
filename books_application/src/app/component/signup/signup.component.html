@@ -99,22 +99,85 @@
             <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
                 <h1 class="h3 mb-3 fw-normal">Register</h1>
                 <div class="form-floating">
-                    <input type="text" class="form-control" name="firstname" id="floatingInput" placeholder="First Name" [(ngModel)]="this.userService.newUser.firstname">
+                    <input type="text" 
+                    class="form-control" 
+                    name="firstname" 
+                    id="floatingInput" 
+                    placeholder="First Name" 
+                    #firstname="ngModel"
+                    [(ngModel)]="this.userService.newUser.firstname"
+                    required minlength="1" pattern="^[a-zA-Z]+$" />
                     <label for="floatingInput">First Name</label>
-                  </div>
-                  <div class="form-floating">
-                    <input type="text" class="form-control" name="lastname" id="floatingInput" placeholder="Last Name" [(ngModel)]="this.userService.newUser.lastname">
+                </div>
+                <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert">
+                    <div *ngIf="firstname.errors?.['required']">
+                        First Name is required
+                    </div>
+                    <div *ngIf="firstname.errors?.['pattern']">
+                        Invalid Name 
+                    </div>
+                </div>
+
+                <div class="form-floating">
+                    <input type="text" 
+                    class="form-control" 
+                    name="lastname" 
+                    id="floatingInput" 
+                    placeholder="Last Name" 
+                    #lastname="ngModel"
+                    [(ngModel)]="this.userService.newUser.lastname"
+                    pattern="^[a-zA-Z]+$" />
                     <label for="floatingInput">Last Name</label>
-                  </div>
+                </div>
+                <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert">
+                    <div *ngIf="lastname.invalid && lastname.errors?.['pattern']">
+                        Invalid Name 
+                    </div>
+                </div>
             
                 <div class="form-floating">
-                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.newUser.email">
+                  <input type="email" 
+                  class="form-control" 
+                  name="email" 
+                  id="floatingInput" 
+                  placeholder="name@example.com" 
+                  #email="ngModel"
+                  [(ngModel)]="this.userService.newUser.email"
+                  required pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
                   <label for="floatingInput">Email address</label>
                 </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                    <div *ngIf="email.errors?.['required']">
+                        Email is required
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']">
+                        Invalid Email 
+                    </div>
+                </div>
+
                 <div class="form-floating">
-                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.newUser.password">
+                  <input type="password" 
+                  class="form-control" 
+                  name = "password" 
+                  id="floatingPassword" 
+                  placeholder="Password" 
+                  #password="ngModel"
+                  [(ngModel)]="this.userService.newUser.password"
+                  required minlength="5" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{5,}$' />
                   <label for="floatingPassword">Password</label>
                 </div>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        Password is required
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                        Password must be atleast 5 characters long
+                    </div>
+                    <div *ngIf="password.errors?.['pattern']">
+                        Password must contain lower case, upper case, a number and a special character(@$!%*?&)
+                    </div>
+                </div>
+
                     <button class="btn btn-primary float-start" type="submit">Register</button>
                     <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
 

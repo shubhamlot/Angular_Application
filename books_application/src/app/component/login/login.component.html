@@ -81,13 +81,47 @@
                 <h1 class="h3 mb-3 fw-normal">Login</h1>
             
                 <div class="form-floating">
-                  <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.userService.returningUser.email">
+                  <input type="email" 
+                  class="form-control" 
+                  name="email" 
+                  id="floatingInput" 
+                  placeholder="name@example.com" 
+                  #email="ngModel"
+                  [(ngModel)]="this.userService.returningUser.email"
+                  required pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
                   <label for="floatingInput">Email address</label>
                 </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                    <div *ngIf="email.errors?.['required']">
+                        Email is required
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']">
+                        Invalid Email 
+                    </div>
+                </div>
+
                 <div class="form-floating">
-                  <input type="password" class="form-control" name = "password" id="floatingPassword" placeholder="Password" [(ngModel)]="this.userService.returningUser.password">
+                  <input type="password" 
+                  class="form-control" 
+                  name = "password" id="floatingPassword" 
+                  placeholder="Password" 
+                  #password="ngModel"
+                  [(ngModel)]="this.userService.returningUser.password"
+                  required minlength="5" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{5,}$' />
                   <label for="floatingPassword">Password</label>
                 </div>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                         Password is required
+                     </div>
+                     <div *ngIf="password.errors?.['minlength']">
+                         Password must be atleast 5 characters long
+                     </div>
+                     <div *ngIf="password.errors?.['pattern']">
+                         Password must contain lower case, upper case, a number and a special character(@$!%*?&)
+                     </div>
+                 </div>
+
                     <button class="btn btn-primary float-start" type="submit">Sign in</button>
                     <button class="btn btn-secondary float-end" type="button" (click)="resetForm()">Clear</button>
 
