@@ -119,7 +119,7 @@ router.get("/:user/rentedbooks",async (req,res)=>{
             res.json({Response:"No data is found"})
         }else{
             res.json(data[0].rentedbooks)
-            // res.json(data)
+         
         }
     })
 
@@ -178,15 +178,15 @@ router.put("/:user/returnBooks/:id",async (req,res)=>{
 
     
     //adds book return log to userlog
-    var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
-    ulog.save((err)=>{
-        if(err){
-            res.json({Response:"error in saving"})
-        }
-        else{
-            res.json({Response:"data is saved"})
-        }
-    })
+    // var ulog=new userlog({userid:userid,bookid:bookid,dateAndtime:now(),rented:rented})
+    // ulog.save((err)=>{
+    //     if(err){
+    //         res.json({Response:"error in saving"})
+    //     }
+    //     else{
+    //         res.json({Response:"data is saved"})
+    //     }
+    // })
     
 })
 
@@ -288,6 +288,7 @@ router.get("/user-information/:email", async (req, res) => {
 
 router.get("/userlog",async(req,res)=>{
     userlog.find((err,data)=>{
+        console.log(data)
         if(err){
             res.json({Response:"No data found"})
         }else{

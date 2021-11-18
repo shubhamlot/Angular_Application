@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +26,9 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Profile
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink" >
            
-            <li><a routerLink="user-profile" [routerLinkActive]="['active']" class="nav-link">Profile</a></li>
+            <li><a class="nav-link" routerLink="user-profile" [routerLinkActive]="['active']" >Profile</a></li>
             <li><a class="nav-link" routerLink="wishlist">Wishlist</a></li>
             <li><a class="nav-link" routerLink="login">Signout</a></li>
           </ul>
