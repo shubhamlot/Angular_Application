@@ -16,6 +16,7 @@ import { SignupComponent } from './component/signup/signup.component';
 import { LoginComponent } from './component/login/login.component';
 import { CartComponent } from './component/cart/cart.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { UserlogComponent } from './component/userlog/userlog.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
@@ -36,9 +37,8 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     WishlistComponent,
     MenuComponent,
     UserprofileComponent,
-    
- 
-    ],
+    UserlogComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

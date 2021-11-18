@@ -5,6 +5,7 @@ import { CreatebookComponent } from './component/createbook/createbook.component
 import { DetailsComponent } from './component/details/details.component';
 import { HomeBooksComponent } from './component/home-books/home-books.component';
 import { LoginComponent } from './component/login/login.component';
+import { RentAbookComponent } from './component/rent-abook/rent-abook.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { UpdatebookComponent } from './component/updatebook/updatebook.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
