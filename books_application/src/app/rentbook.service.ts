@@ -32,7 +32,7 @@ export class RentbookService {
 
  displayrentedbooks(){
    //1.display book from user collection
-   return this.http.get(this.BASE_URL+'/rentedbooks')
+   return this.http.get<string[]>(this.BASE_URL+'/rentedbooks')
    //user._id to be passed
  }
 

@@ -116,7 +116,7 @@ router.get("/rentedbooks", verifyToken,async (req,res)=>{
             // console.log(data)
             // let rented_books = []
             // for(b of data[0].rentedbooks){
-            //     let result = book.findOne({"_id":'618fd07ebdc91f235998e2de'})
+            //     let result = book.findOne({"_id":b'})
             //     let book_info = {}
             //     book_info.title =  result.title
             //     book_info.author = result.author
@@ -126,6 +126,8 @@ router.get("/rentedbooks", verifyToken,async (req,res)=>{
             // console.log(rented_books)
             // console.log(book.find({"_id":{"$in":data[0].rentedbooks}}))
             res.json(data[0].rentedbooks)
+
+
         }
     })
 

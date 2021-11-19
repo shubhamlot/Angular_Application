@@ -51,7 +51,7 @@ updateBook(book:Books){
 }
 
 getBookDetails(book_id:string){
-  return this.http.get(this.BASE_URL+'/getBooks/'+book_id)
+  return this.http.get<Books>(this.BASE_URL+'/getBooks/'+book_id)
 }
 
 rentBooks(book:Books){
