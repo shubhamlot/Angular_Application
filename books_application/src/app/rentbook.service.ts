@@ -33,8 +33,12 @@ export class RentbookService {
 
  displayrentedbooks(){
    //1.display book from user collection
+<<<<<<< HEAD
   //  console.log(this.userservice.userID)
    return this.http.get(this.BASE_URL+'/rentedbooks'+"/"+this.userservice.userID)
+=======
+   return this.http.get<string[]>(this.BASE_URL+'/rentedbooks')
+>>>>>>> f2de13c972b3d9423e777692fcf46fee2b29485e
    //user._id to be passed
  }
 

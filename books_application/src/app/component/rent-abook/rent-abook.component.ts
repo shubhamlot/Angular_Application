@@ -2,6 +2,7 @@ import { Books } from './../../Books';
 import { RentbookService } from './../../rentbook.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BooksService } from 'src/app/books.service';
 
 @Component({
   selector: 'app-rent-abook',
@@ -9,9 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./rent-abook.component.css']
 })
 export class RentAbookComponent implements OnInit {
-  books:any;
+  books:any = [];
   user:any;
-  constructor(public rentservice:RentbookService,private route:ActivatedRoute,private router:Router) { }
+  constructor(public rentservice:RentbookService,private route:ActivatedRoute,private router:Router,
+    private bookService: BooksService) { }
   
   ngOnInit(): void {
     this.loadLibrary();
@@ -19,7 +21,13 @@ export class RentAbookComponent implements OnInit {
 
   loadLibrary() {
     this.rentservice.displayrentedbooks().subscribe(data=>{
-      this.books = data
+      
+      for(let b of data){
+        this.bookService.getBookDetails(b).subscribe(
+          res => {this.books.push(res)
+          console.log(res)}
+        )
+      }
       console.log(this.books)
     }, 
     error=>console.error("error"+error))
