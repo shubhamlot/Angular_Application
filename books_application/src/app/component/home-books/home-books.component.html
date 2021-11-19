@@ -46,7 +46,7 @@
 
     
   
-      <button *ngIf="this.isadmin==true" type="button"  class="btn btn-info" routerLink="create">Create</button>
+      <button *ngIf="isadmin==true" type="button"  class="btn btn-info" routerLink="create">Create</button>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
 <br/>
 
 
-<div *ngIf="books.length ==0 else DisplayBlock">
+<div *ngIf="books.length == 0 else DisplayBlock">
   <div class="alert alert-warning" role="alert">
     No books Under this category are found!
   </div>

@@ -30,11 +30,10 @@ export class RentbookService {
    return this.http.put(this.BASE_URL+'/returnBooks/'+book._id,book)
  }
 
- displayrentedbooks(user:User){
+ displayrentedbooks(){
    //1.display book from user collection
    return this.http.get(this.BASE_URL+'/rentedbooks')
    //user._id to be passed
-  
  }
 
  showuserlog(){

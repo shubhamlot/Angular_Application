@@ -11,19 +11,23 @@ import { UpdatebookComponent } from './component/updatebook/updatebook.component
 import { UserlogComponent } from './component/userlog/userlog.component';
 import { UserprofileComponent } from './component/userprofile/userprofile.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path:'update/:id',
-    component:UpdatebookComponent
+    component:UpdatebookComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'create',
-    component:CreatebookComponent
+    component:CreatebookComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'details/:id',
-    component:DetailsComponent
+    component:DetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
 	path:'signup',
@@ -35,23 +39,32 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'wishlist',
-    component: WishlistComponent
+    component: WishlistComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-profile',
-    component: UserprofileComponent
+    component: UserprofileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'userlog',
-    component:UserlogComponent
+    component:UserlogComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'rent-abook',
+    component: RentAbookComponent
   },
   {
     path:'',
-    component:HomeBooksComponent
+    component:HomeBooksComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

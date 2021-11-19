@@ -4,6 +4,7 @@ import { BooksService } from 'src/app/books.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router'
 import { SessionStorageService } from 'angular-web-storage';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-details',
@@ -14,17 +15,22 @@ export class DetailsComponent implements OnInit {
   flag:Boolean
   books:any;
   id:any;
-  public isadmin:Boolean
+  isadmin:Boolean = false
   book_id:any
 
   constructor(public bookData:BooksService,
               private route:ActivatedRoute,
               private router:Router,
-              private sessionSt : SessionStorageService) { }
+              private sessionSt : SessionStorageService,
+              private userservice : UserService) 
+              { 
+                this.isadmin = userservice.isadmin
+                console.log(this.isadmin)
+              }
 
   ngOnInit(): void {
-    this.isadmin=false;
     this.id = this.route.snapshot.paramMap.get('id')
+    
     this.details(this.id)
     // Why call this function here?
     this.rentBook()
@@ -72,7 +78,7 @@ export class DetailsComponent implements OnInit {
     this.bookData.getBookDetails(id).subscribe(res=>{
       this.books = res
       console.log(this.books)
-      
+      this.isadmin=false
     
 
     })

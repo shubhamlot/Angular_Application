@@ -1,5 +1,5 @@
-<table class="table align-middle">
-    <!-- <thead>
+<!--<table class="table align-middle">
+     <thead>
       <tr>
         <th scope="col">Book Name</th>
         <th scope="col">Return</th>
@@ -11,9 +11,9 @@
       <!-- <tr *ngFor ="let book of Users.rentedbooks">
         <td></td>
           <button type="button" >Return Book</button>
-          Book details link will be added from catalogue-->
+          Book details link will be added from catalogue
     <tbody>
-          <td>
+          <td> 
 
           <button type="button">View Details</button>
         </td>
@@ -21,8 +21,82 @@
       
     </tbody> 
   </table>
+-->
+<!-- <h1>Cart </h1>
+
+<table class="table">
+    <tr>
+      
+      <th>Title</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>Remaining Copies</th>
+      <th>Rented Copies</th>
+
+      <th></th>
 
 
+    </tr>
+    <tr *ngFor="let book of books" >
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.category}}</td>
+      <td>{{book.copies}}</td>
+      <td>{{book.rented}}</td>
+
+      <td><button class="details" (click) = "removeItem(book)">Remove from Cart</button></td>
+
+    </tr>
+    <br>
+    <button class="details" (click)="checkOut()" > Checkout </button>
+    
+  </table> -->
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-4">Library</h1>
+                    </div>
+                    <div class="col align-self-center text-end display-6" *ngIf="books">{{books.length}} items</div>
+                    <hr>
+                </div>
+            </div> <!-- title ends-->
+
+            <div class="row"> 
+              <div class="row align-items-center">
+                <div class="col"> <h4> Item </h4> </div>
+                <div class="col"> <h4> Genre</h4> </div>
+                <div class="col"> <h4> Type</h4> </div>
+                <div class="col"></div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="row" *ngFor="let book of books">
+              <div class="row main align-items-center">
+                  <div class="col">
+                    <div class="row"> {{book.title}}</div>
+                    <div class="row text-muted">{{book.author}}</div>
+                  </div>
+                  
+                  <div class="col"> {{book.category}} </div>
+                  <div class="col"> Hardbound </div>
+
+                  <div class="col"> 
+                    <button class="btn align-self-end" (click)="returnBook()">RETURN</button>
+                  </div>
+              </div>
+              <hr>
+            </div>
+
+            
+
+            <div class="back-to-shop"><a routerLink="/">&leftarrow;</a><span class="text-muted display">Back to shop</span></div>
+        </div>
+        
 
 
 

@@ -9,6 +9,8 @@ const {body, validationResult} = require('express-validator')
 const bcrypt = require("bcrypt")
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+// const user = require('../model/Users')
+// const user = require('../model/Users')
 
 router.get("/getBooks",(req,res)=>{
     book.find({},(err,data)=>{
@@ -82,22 +84,21 @@ router.put("/editBooks/:id",async (req,res)=>{
     res.json({Response:"Status updated"})
 })
 
-router.put("/:userid/rentBooks/:id",async (req,res)=>{
+router.put("/rentBooks/:id", verifyToken,async (req,res)=>{
     var bookid = req.params.id
     var copies = req.body.copies
     var rented = req.body.rented
-    var userid = req.params.userid
-
+    var email = req.body.email
     // if(copies>0){
         copies-=1
         rented+=1
-        console.log("hi")
+      
         await book.findOneAndUpdate({_id:bookid},{ $set:{copies:copies,rented:rented} }).then(data=>{
-            var ulog=new userlog({userid:userid,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
+            var ulog=new userlog({email:email,bookid:bookid,book:data.title,dateAndtime:now(),rented:true})
             console.log(ulog)
             ulog.save()
         })
-        await user.findOneAndUpdate({_id:userid},{$push:{rentedbooks:bookid}}).then(data=>{
+        await user.findOneAndUpdate({email: email},{$push:{rentedbooks:bookid}}).then(data=>{
             
             res.json({Response:"Status updated"})
         })
@@ -107,14 +108,25 @@ router.put("/:userid/rentBooks/:id",async (req,res)=>{
 })
 
 
-router.get("/:user/rentedbooks",async (req,res)=>{
-    var userid = req.params.user
-    user.find({_id:userid},(err,data)=>{
+router.get("/rentedbooks", verifyToken,async (req,res)=>{
+    var email = req.body.email
+    user.find({email: email},(err,data)=>{
         if(err){
             res.json({Response:"No data is found"})
         }else{
+            // console.log(data)
+            // let rented_books = []
+            // for(b of data[0].rentedbooks){
+            //     let result = book.findOne({"_id":'618fd07ebdc91f235998e2de'})
+            //     let book_info = {}
+            //     book_info.title =  result.title
+            //     book_info.author = result.author
+            //     book_info.category = result.category
+            //     rented_books.push(result)
+            // }
+            // console.log(rented_books)
+            // console.log(book.find({"_id":{"$in":data[0].rentedbooks}}))
             res.json(data[0].rentedbooks)
-         
         }
     })
 
@@ -213,9 +225,11 @@ router.post(
 							if(error) return next(error)
 
 							const body = { email: user.email };
-							const token = jwt.sign({user: body}, 'TOP_SECRET');
-
-							return res.json({token, info});
+							const token = jwt.sign(body, 'TOP_SECRET');
+                            userid = user._id
+                            isadmin = user.isadmin
+                            // console.log(isadmin)
+							return res.json({token, info, userid, isadmin});
 						}
 					)
 				} catch(e) {
@@ -248,10 +262,10 @@ router.post("/login", async (req, res) => {
 })
 */
 
-/*
+
 //returns user information
-router.get("/user-information/:email", async (req, res) => {
-    let email = req.params.email;
+router.get("/user-information", verifyToken, async (req, res) => {
+    let email = req.body.email;
 
     let result = await user.findOne({email: email});
 	
@@ -266,7 +280,6 @@ router.get("/user-information/:email", async (req, res) => {
 		res.send(userInfo);
 	}
 });
-*/
 
 
 router.get("/userlog",async(req,res)=>{
@@ -280,4 +293,91 @@ router.get("/userlog",async(req,res)=>{
         }
     })
 })
+
+
+//for change in password 
+router.post('/change-password', verifyToken,async (req, res)=>{ 
+    let email = req.body.email
+    let password = req.body.current_password
+    let new_password = req.body.new_password
+    console.log(password, email, new_password)
+
+    try {
+        const User = await user.findOne({ email:email });
+
+        if (!User) {
+            return done(null, false, { message: 'User not found' });
+        }
+
+        // const validate = await user.isValidPassword(password);
+
+	    // if (!validate) {
+		// 	res.send('Enter currect password!!!')
+		// }
+
+       try{
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(new_password,salt)
+        const oldPassword = await bcrypt.hash(password,salt)
+        new_password = hashedPassword
+       }catch{
+            console.log('Not able to encrypt');
+       }
+
+        user.findOneAndUpdate({email: email}, {password: new_password}, (err, result)=>{
+            if(err){
+                console.log(err)
+                return res.send('not able to update')
+            }else{
+                return res.status(200).send('Password As been changed!!!')
+            }
+        })
+        
+
+    } catch (error) {
+        return error;
+    }
+
+})
+
+router.put('/change-profile', verifyToken,async (req, res) => {
+    let email = req.body.email
+    let firstname = req.body.firstname
+    let lastname = req.body.lastname
+
+    await user.findOneAndUpdate({ email:email }, {firstname: firstname, lastname: lastname}, 
+        (err, result) => {
+            if(err){
+                console.log(err)
+                return res.send('sorry! Not able to update, try again')
+            }else{
+                return res.json(result)
+            }
+        }).clone();
+})
+
+//verify token middleware
+function verifyToken(req, res, next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unauthorized request')
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if(token === 'null'){
+        return res.status(401).send('Unauthorized request')
+    }
+    let payload = jwt.verify(token, 'TOP_SECRET')
+    if(!payload){
+        return res.status(401).send('Unauthorized request')
+    }
+    req.body.email = payload.email;
+    // console.log(payload.email)
+    // console.log(req.email)
+    // console.log(req.body.email);
+    next()
+}
+
+
+
+
+
 module.exports = router

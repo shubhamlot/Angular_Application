@@ -9,18 +9,27 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./rent-abook.component.css']
 })
 export class RentAbookComponent implements OnInit {
-  book:any;
+  books:any;
   user:any;
   constructor(public rentservice:RentbookService,private route:ActivatedRoute,private router:Router) { }
   
   ngOnInit(): void {
+    this.loadLibrary();
   }
 
+  loadLibrary() {
+    this.rentservice.displayrentedbooks().subscribe(data=>{
+      this.books = data
+      console.log(this.books)
+    }, 
+    error=>console.error("error"+error))
+  } 
+
   rentBook(){
-    if(this.book.copies==0){
-    this.rentservice.rentBook(this.book).subscribe(data=>{
-      this.rentservice.userlist.push(this.book.id);
-      alert(this.book.title+' is rented!')
+    if(this.books.copies==0){
+    this.rentservice.rentBook(this.books).subscribe(data=>{
+      this.rentservice.userlist.push(this.books.id);
+      alert(this.books.title+' is rented!')
     },
     error => console.error("error"+error)
 
@@ -29,20 +38,13 @@ export class RentAbookComponent implements OnInit {
   }
 
   returnBook(){
-    this.rentservice.returnBook(this.book).subscribe(data=>{
-      this.book.copies=1;
+    this.rentservice.returnBook(this.books).subscribe(data=>{
+      this.books.rented =0;
+      this.books.copies=1;
     },
     error=>console.error("error"+error)
     )
+    this.loadLibrary();
   }
   
-  displayRented(){
-    //error over here
-    // this.rentservice.displayrentedbooks().subscribe(data=>{
-    //   this.book=data
-    // },
-    // error=>console.error("error"+error)
-
-    // )
-  }
 }

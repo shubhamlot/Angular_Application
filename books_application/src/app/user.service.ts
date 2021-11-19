@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from './User'
+import { Router } from '@angular/router';
+
+type changepwd = {
+	current_password: string,
+	new_password: string,
+	confirm_password: string
+}
 
 type signupSchema = {
 	firstname: string;
@@ -22,6 +29,7 @@ type userInfoSchema = {
 	rentedbooks: []
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,12 +39,12 @@ export class UserService {
 
 	newUser: signupSchema;
 	returningUser:loginSchema;
-
-	isLoggedIn: boolean = false;//to be used in userprofile
+	isadmin:boolean =false
+	userID:string =""
 	userEmail: string;
-	isadmin: boolean
+	// isadmin: boolean
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private _router: Router) {
 		this.newUser = new User("","","","","")
 		this.returningUser = {email: "", password: ""}
 	}
@@ -46,13 +54,37 @@ export class UserService {
 	}
 
 	login(user:loginSchema){
-		return this.http.post(this.BASE_URL+'/login', user)
+		return this.http.post<{token:string, info:{},userid:string,isadmin:boolean}>(this.BASE_URL+'/login', user)
 	}
 
 	//retrive user profile data
 	userProfileInformation(){
-		return this.http.get<userInfoSchema>(this.BASE_URL+'/user-information/'+this.userEmail);
+		return this.http.get<userInfoSchema>(this.BASE_URL+'/user-information');
 	}
 
+
+
+	//below methods are for autherization 
+	loggedIn(){
+		return !!localStorage.getItem('token')
+	}
+
+	getToken(){
+		return localStorage.getItem('token')
+	}
+
+	logOut(){
+		localStorage.removeItem('token')
+		this._router.navigate(['/login'])
+	}
+
+	//for changing password
+	changePassword(changepwd: changepwd){
+		return this.http.post<any>(this.BASE_URL+'/change-password', changepwd)
+	}
+
+	changeProfile(userInfo:{firstname:string, lastname:string}){	
+		return this.http.put<userInfoSchema>(this.BASE_URL+'/change-profile', userInfo)
+	}
 }
 

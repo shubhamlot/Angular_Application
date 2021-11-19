@@ -22,7 +22,6 @@ var bookSchema = new schema({
         type:String,
         //required:true
     },
-    
     copies:{
         type:Number,
         required:true,
