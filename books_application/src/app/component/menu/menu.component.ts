@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isadmin=true
+    
   }
 
 }

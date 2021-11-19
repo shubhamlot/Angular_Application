@@ -30,7 +30,7 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink" >
            
             <li><a class="nav-link" routerLink="user-profile" [routerLinkActive]="['active']" >Profile</a></li>
-            <li *ngIf="isadmin == true else AdminControl"><a class="nav-link" routerLink="wishlist">Wishlist</a></li>
+            <li *ngIf="isadmin == false else AdminControl"><a class="nav-link" routerLink="wishlist">Wishlist</a></li>
             <ng-template #AdminControl>
             <li><a class="nav-link" routerLink="userlog">Logs</a></li>
 
