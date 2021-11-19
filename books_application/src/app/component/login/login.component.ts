@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
 					
 				 	localStorage.setItem('token', data.token)
 					this.userService.isadmin = data.isadmin
+					console.log(data.isadmin)
 					this.userService.userID = data.userid
 					// this.userService.userEmail = this.email //set email in user email in user service
 					this.router.navigate(['/'])

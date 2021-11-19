@@ -24,11 +24,12 @@ export class SignupComponent implements OnInit {
 			lastname: "",
 			email: "",
 			password: "",
+			isadmin:false
 		}
 	}
 
 	onSubmit(): void {
-	
+		this.userService.newUser.isadmin=true
 		this.userService.signup(this.userService.newUser).subscribe(
 			data => {
 				if(data === true) this.router.navigate(['/']) // redirect to the appropriate page

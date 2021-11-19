@@ -21,7 +21,7 @@ module.exports = function (passport) {
 					if(duplicateUser) return done(null, false, { message: 'User already exists' })
 
 					const user = await UserModel.create({"firstname": req.body.firstname, "lastname": req.body.lastname, email, password });
-		
+					console.log(user)
 					return done(null, user);
 				} catch (error) {
 					done(error);

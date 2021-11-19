@@ -107,26 +107,41 @@ router.put("/rentBooks/:id", verifyToken,async (req,res)=>{
 })
 
 
-router.get("/rentedbooks", verifyToken,async (req,res)=>{
-    var email = req.body.email
-    user.find({email: email},(err,data)=>{
+router.get("/rentedbooks/:userid",async (req,res)=>{
+    var userid = req.params.userid
+    // var email = req.body.email
+    user.find({_id: userid},(err,data)=>{
         if(err){
             res.json({Response:"No data is found"})
         }else{
             // console.log(data)
-            // let rented_books = []
-            // for(b of data[0].rentedbooks){
-            //     let result = book.findOne({"_id":'618fd07ebdc91f235998e2de'})
-            //     let book_info = {}
-            //     book_info.title =  result.title
-            //     book_info.author = result.author
-            //     book_info.category = result.category
-            //     rented_books.push(result)
-            // }
-            // console.log(rented_books)
+            let rented_books = []
+             function result(id){
+               
+                return book.findOne({"_id":id},(err,data)=>{
+                    let book_info = {}
+                    book_info.title =  data.title
+                    book_info.author = data.author
+                    book_info.category = data.category
+                    return book_info
+                })
+            }
+
+            for(b of data[0].rentedbooks){
+                
+                
+            }
+                
+                
+                
+                
+                
+            
+            
             // console.log(book.find({"_id":{"$in":data[0].rentedbooks}}))
             res.json(data[0].rentedbooks)
         }
+        
     })
 
 
@@ -227,7 +242,7 @@ router.post(
 							const token = jwt.sign(body, 'TOP_SECRET');
                             userid = user._id
                             isadmin = user.isadmin
-                            // console.log(isadmin)
+                            console.log(isadmin)
 							return res.json({token, info, userid, isadmin});
 						}
 					)

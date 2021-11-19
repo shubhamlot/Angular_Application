@@ -14,6 +14,7 @@ type signupSchema = {
 	lastname: string;
 	email: string;
 	password: string;
+	isadmin: boolean
 };
 
 type loginSchema = {
@@ -45,15 +46,18 @@ export class UserService {
 	// isadmin: boolean
 
 	constructor(private http: HttpClient, private _router: Router) {
-		this.newUser = new User("","","","","")
+		this.newUser = new User("","","","",false)
+		
 		this.returningUser = {email: "", password: ""}
 	}
 
 	signup(user:signupSchema){
+		console.log(user)
 		return this.http.post(this.BASE_URL+'/signup', user)
 	}
 
 	login(user:loginSchema){
+		
 		return this.http.post<{token:string, info:{},userid:string,isadmin:boolean}>(this.BASE_URL+'/login', user)
 	}
 

@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path:'details/:id',
     component:DetailsComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
 	path:'signup',

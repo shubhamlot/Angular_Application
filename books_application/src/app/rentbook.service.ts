@@ -2,6 +2,7 @@ import { User } from './User';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Books } from './Books';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RentbookService {
   // data:Array<Books>
   selectedBooks:Books
   //book: any;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private userservice:UserService) {
     this.selectedBooks=new Books("","","","",0,0)
 
   }
@@ -32,7 +33,8 @@ export class RentbookService {
 
  displayrentedbooks(){
    //1.display book from user collection
-   return this.http.get(this.BASE_URL+'/rentedbooks')
+  //  console.log(this.userservice.userID)
+   return this.http.get(this.BASE_URL+'/rentedbooks'+"/"+this.userservice.userID)
    //user._id to be passed
  }
 
