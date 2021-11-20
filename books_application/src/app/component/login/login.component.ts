@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 					this.router.navigate(['/'])
 				} // redirect to the appropriate page
 				else {
-					
+					// TODO: display some kind of error message to let the user know (wrong email or password)
 					this.router.navigate(['/login'])
 				}
 			},

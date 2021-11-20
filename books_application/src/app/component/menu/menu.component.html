@@ -25,7 +25,7 @@
        
         <li class="nav-item dropdown"  *ngIf="userservice.loggedIn()">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-            Profile
+            {{user.firstname}} {{user.lastname}}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink" >
            

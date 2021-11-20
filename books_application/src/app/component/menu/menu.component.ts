@@ -8,7 +8,9 @@ import { UserService } from 'src/app/user.service';
 })
 export class MenuComponent implements OnInit {
 
-  isadmin:Boolean = false
+  isadmin:Boolean = false;
+  user: any;
+
   constructor(public userservice:UserService) { 
     this.isadmin = userservice.isadmin
     console.log(this.isadmin)
@@ -16,6 +18,21 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.isadmin=true
+
+    this.loadUserName();
+  }
+
+  loadUserName() {
+    this.userservice.userProfileInformation().subscribe(
+      result => {
+       
+        if(this.userservice.loggedIn()){
+          this.user = result;
+          // console.log(this.user);
+        }
+        
+      }
+    );
   }
 
 }

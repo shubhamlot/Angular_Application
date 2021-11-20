@@ -18,14 +18,16 @@ export class HomeBooksComponent implements OnInit {
   book_id:any
   books:any
   index:any
-  isadmin = true;
+  isadmin = false;
   isValidated = false;
   categories: any = ['Mystery','Fiction', 'Educational']
  
   
-  constructor(private bookData:BooksService,private router:Router,private userservice:UserService) { 
+  constructor(private bookData:BooksService,
+              private router:Router,
+              private userservice:UserService) {
    this.isadmin = this.userservice.isadmin
-   console.log(this.isadmin)
+
   }
 
   ngOnInit(): void {
@@ -58,10 +60,6 @@ export class HomeBooksComponent implements OnInit {
     }
   }
 
-
-
-
-
   changeCategory(e:any) {
     if(this.categories != null){
       if(e.target.value == "All"){
@@ -69,19 +67,6 @@ export class HomeBooksComponent implements OnInit {
       }else{
         this.getBookByCat(e.target.value)
       }
-    
+    }
   }
-  }
-
-  
-
-
-
-
 }
-
-
-function toLowerCase(cat: string): string {
-  throw new Error('Function not implemented.');
-}
-//by shrinath
